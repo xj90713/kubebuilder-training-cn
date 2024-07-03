@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Manager - mdBook Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Create book from markdown files. Like Gitbook but implemented in Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Kubebuilder制作和学习</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../introduction/basics.html"><strong aria-hidden="true">1.2.</strong> 字定制控制器的基础知识</a></li><li class="chapter-item expanded "><a href="../introduction/sample.html"><strong aria-hidden="true">1.3.</strong> MarkdownView控制器</a></li><li class="chapter-item expanded "><a href="../introduction/references.html"><strong aria-hidden="true">1.4.</strong> 参考资料</a></li></ol></li><li class="chapter-item expanded "><a href="../kubebuilder/index.html"><strong aria-hidden="true">2.</strong> Kubebuilder</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kubebuilder/new-project.html"><strong aria-hidden="true">2.1.</strong> 创建项目模板</a></li><li class="chapter-item expanded "><a href="../kubebuilder/api.html"><strong aria-hidden="true">2.2.</strong> API模板创建</a></li><li class="chapter-item expanded "><a href="../kubebuilder/webhook.html"><strong aria-hidden="true">2.3.</strong> 创建Webhook模板</a></li><li class="chapter-item expanded "><a href="../kubebuilder/kind.html"><strong aria-hidden="true">2.4.</strong> 检查自定义控制器的操作</a></li></ol></li><li class="chapter-item expanded "><a href="../controller-tools/index.html"><strong aria-hidden="true">3.</strong> controller-tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../controller-tools/rbac.html"><strong aria-hidden="true">3.1.</strong> RBAC清单的生产</a></li><li class="chapter-item expanded "><a href="../controller-tools/webhook.html"><strong aria-hidden="true">3.2.</strong> Webhook的产生表现</a></li></ol></li><li class="chapter-item expanded "><a href="../controller-runtime/index.html"><strong aria-hidden="true">4.</strong> controller-runtime</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../controller-runtime/reconcile.html"><strong aria-hidden="true">4.1.</strong> Reconcile调和</a></li><li class="chapter-item expanded "><a href="../controller-runtime/controller_test.html"><strong aria-hidden="true">4.2.</strong> 控制器测试</a></li><li class="chapter-item expanded "><a href="../controller-runtime/webhook.html"><strong aria-hidden="true">4.3.</strong> Webhook实现</a></li><li class="chapter-item expanded "><a href="../controller-runtime/webhook_test.html"><strong aria-hidden="true">4.4.</strong> Webhook测试</a></li><li class="chapter-item expanded "><a href="../controller-runtime/deletion.html"><strong aria-hidden="true">4.5.</strong> 删除资源</a></li><li class="chapter-item expanded "><a href="../controller-runtime/manager.html" class="active"><strong aria-hidden="true">4.6.</strong> Manager</a></li><li class="chapter-item expanded "><a href="../controller-runtime/monitoring.html"><strong aria-hidden="true">4.7.</strong> 监控</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">mdBook Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/mdBook/tree/master/guide" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/mdBook/edit/master/guide/src/controller-runtime/manager.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="manager"><a class="header" href="#manager">Manager</a></h1>
+<p><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#Manager">Manager</a>负责管理多个控制器，并提供了领导者选举、指标、健康检查服务器等功能。</p>
+<p>虽然我们已经介绍了Manager的一些功能，但它还有许多其他方便的功能。让我们继续介绍一些。</p>
+<h2 id="领导者选举"><a class="header" href="#领导者选举">领导者选举</a></h2>
+<p>如果要提高自定义控制器的可用性，可以使用部署功能将多个自定义控制器的Pod部署到集群中。
+然而，如果Reconcile处理程序针对相同资源执行某些处理，可能会导致竞态条件。</p>
+<p>因此，Manager提供了领导者选举功能。
+这样，它可以从多个进程中选出一个领导者，只有选中的领导者进程才能执行Reconcile处理。</p>
+<p>使用领导者选举很简单，只需在<code>NewManager</code>的选项中将<code>LeaderElection</code>设置为true，并在<code>LeaderElectionID</code>中指定领导者选举的ID即可。
+领导者选举会从指定了相同<code>LeaderElectionID</code>的进程中选出一个领导者。</p>
+<p><a href="../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>接下来，将<a href="../../codes/50_completed/config/manager/manager.yaml">config/manager/manager.yaml</a>中的<code>replicas</code>字段更改为2，然后部署MarkdownView控制器。</p>
+<p>如果查看部署的两个Pod的日志，您将看到被选为领导者的Pod是唯一执行Reconcile处理的Pod。
+终止被选为领导者的Pod后，您将看到另一个Pod成为新的领导者。</p>
+<p>需要提醒的是，由于Admission Webhook处理不会导致竞态条件，因此不是领导者的进程依然可以执行Admission Webhook处理。</p>
+<p>Manager提供了许多便利功能，领导者选举只是其中之一。希望这些信息有助于您更好地了解和使用Manager。</p>
+<h2 id="runnable"><a class="header" href="#runnable">Runnable</a></h2>
+<p>在实现自定义控制器时，除了Reconcile循环之外，有时可能希望启动goroutine定期执行某些任务，或者等待某些事件。
+Manager提供了一种机制来实现这种处理。</p>
+<p>例如，TopoLVM在定期收集指标和启动gRPC服务器方面使用了Runnable。</p>
+<ul>
+<li><a href="https://github.com/topolvm/topolvm/tree/main/runners">https://github.com/topolvm/topolvm/tree/main/runners</a></li>
+</ul>
+<p>要使用Runnable功能，您需要准备以下代码，实现<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#Runnable">Ruunable</a>接口。
+下面是一个以10秒为周期执行某些处理的Runner的实现示例。</p>
+<pre><code class="language-go">package runners
+
+import (
+    "context"
+    "fmt"
+    "time"
+)
+
+type Runner struct {
+}
+
+func (r Runner) Start(ctx context.Context) error {
+    ticker := time.NewTicker(10 * time.Second)
+    defer ticker.Stop()
+    for {
+        select {
+        case &lt;-ctx.Done():
+            return ctx.Err()
+        case &lt;-ticker.C:
+            fmt.Println("run something")
+        }
+    }
+}
+
+func (r Runner) NeedLeaderElection() bool {
+    return true
+}
+</code></pre>
+<p>当调用Manager的Start方法时，Start方法将作为goroutine调用。
+通过参数<code>context</code>，您可以接收来自Manager的退出通知。</p>
+<pre><code class="language-go">err = mgr.Add(&amp;runners.Runner{})
+</code></pre>
+<p>值得注意的是，此Runner的处理通常只在作为领导者运行的Manager中起作用。
+如果希望在非领导者状态下始终运行某些处理，可以实现<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#LeaderElectionRunnable">LeaderElectionRunnable</a>接口，并在NeedLeaderElection方法中返回 <code>false</code>。</p>
+<h2 id="eventrecorder"><a class="header" href="#eventrecorder">EventRecorder</a></h2>
+<p>在自定义资源的状态中保存了当前状态，如果想记录过去执行过的处理情况，可以利用Kubernetes提供的<a href="https://pkg.go.dev/k8s.io/api/core/v1?tab=doc#Event">Event</a>资源。</p>
+<p>Manager提供了记录事件的功能，通过<code>GetEventRecorderFor</code>可以获取<a href="https://pkg.go.dev/k8s.io/client-go/tools/record?tab=doc#EventRecorder">EventRecorder</a>。
+在初始化Reconciler时，通过传递EventRecorder来记录事件。</p>
+<p><a href="../../codes/50_completed/cmd/main.go">import:“init-reconciler”,unindent:“true”</a></p>
+<p>在Reconciler中将其作为字段持有。</p>
+<pre><code class="language-go">// 在Reconciler中持有EventRecorder
+type MarkdownViewReconciler struct {
+    // Other fields
+    eventRecorder record.EventRecorder
+}
+</code></pre>
+<p>可通过<code>Event</code>, <code>Eventf</code>, <code>AnnotatedEventf</code>等函数来记录事件。
+在这里，我们决定在更新状态时记录以下类型的事件。注意，事件类型只能是<code>EventTypeNormal</code>或<code>EventTypeWarning</code>。</p>
+<pre><code class="language-go">// 记录事件
+r.eventRecorder.Event(resource, corev1.EventTypeNormal, "StatusUpdated", "Status has been updated")
+</code></pre>
+<p>Event资源与指定的资源关联，并且与该资源相同的命名空间中创建Event资源。
+为了让自定义控制器能够创建Event资源，需要添加下面的RBAC标记，并通过<code>make manifests</code>更新清单文件。</p>
+<p>カスタムリソースのStatusには、現在の状態が保存されています。
+一方、これまでどのような処理が実施されてきたのかを記録したい場合、Kubernetesが提供する<a href="https://pkg.go.dev/k8s.io/api/core/v1?tab=doc#Event">Event</a>リソースを利用できます。</p>
+<p>Managerはイベントを記録するための機能を提供しており、<code>GetEventRecorderFor</code>で<a href="https://pkg.go.dev/k8s.io/client-go/tools/record?tab=doc#EventRecorder">EventRecorder</a>を取得できます。
+以下のように、Reconcilerを初期化する際にEventRecorderを渡します。</p>
+<p>Reconcilerではこれをフィールドとして持っておきます。</p>
+<p><a href="../../codes/50_completed/internal/controller/markdownview_controller.go">import:“reconciler”,unindent:“true”</a>
+Eventを記録するための関数として、<code>Event</code>, <code>Eventf</code>, <code>AnnotatedEventf</code>などが用意されています。
+ここでは、ステータス更新時に以下のようなイベントを記録することにしましょう。なお、イベントタイプには<code>EventTypeNormal</code>, <code>EventTypeWarning</code>のみ指定できます。</p>
+<p><a href="../../codes/50_completed/internal/controller/markdownview_controller.go">import:“call-recorder-event”,unindent:“true”</a></p>
+<p>このEventリソースは第1引数で指定したリソースに結びいており、そのリソースと同じnamespaceにEventリソースが作成されます。
+カスタムコントローラーがEventリソースを作成できるように、以下のようなRBACのマーカーを追加し、<code>make manifests</code>でマニフェストを更新しておきます。</p>
+<pre><code class="language-go">//+kubebuilder:rbac:groups=core,resources=events,verbs=create;update;patch
+</code></pre>
+<p>コントローラーを実行し、作成したEventリソースを確認してみましょう。なお、Eventリソースはデフォルト設定では1時間経つと消えてしまいます。</p>
+<pre><code>$ kubectl get events -n default
+LAST SEEN   TYPE     REASON    OBJECT                             MESSAGE
+14s         Normal   Updated   markdownview/markdownview-sample   MarkdownView(default:markdownview-sample) updated: NotReady
+13s         Normal   Updated   markdownview/markdownview-sample   MarkdownView(default:markdownview-sample) updated: Healthy
+</code></pre>
+<h2 id="healthprobe"><a class="header" href="#healthprobe">HealthProbe</a></h2>
+<p>Managerには、ヘルスチェック用のAPIのエンドポイントを作成する機能が用意されています。</p>
+<p>ヘルスチェック機能を利用するには、Managerの作成時に<code>HealthProbeBindAddress</code>でエンドポイントのアドレスを指定します。</p>
+<p><a href="../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>そして、<code>AddHealthzCheck</code>と<code>AddReadyzCheck</code>で、ハンドラの登録をおこないます。
+デフォルトでは<code>healthz.Ping</code>という何もしない関数を利用していますが、独自関数の登録も可能です。</p>
+<p><a href="../../codes/50_completed/cmd/main.go">import:“health”,unindent:“true”</a></p>
+<p>カスタムコントローラーのマニフェストでは、このヘルスチェックAPIを<code>livenessProbe</code>と<code>readinessProbe</code>として利用するように指定されています。</p>
+<p><a href="../../codes/50_completed/config/manager/manager.yaml">import:“probe”,unindent:“true”</a></p>
+<h2 id="fieldindexer"><a class="header" href="#fieldindexer">FieldIndexer</a></h2>
+<p><a href="./client.html">クライアントの使い方</a>で紹介したように、複数のリソースを取得する際にラベルやnamespaceで絞り込むことが可能です。
+しかし、特定のフィールドの値に応じてフィルタリングしたいこともあるでしょう。
+controller-runtimeではインメモリにキャッシュしているリソースに対してインデックスを張る仕組みが用意されています。</p>
+<p><img src="./img/index.png" alt="index" /></p>
+<p>インデックスを利用するためには事前にManagerの<code>GetFieldIndexer()</code>を利用して、どのフィールドの値に基づいてインデックスを張るのかを指定します。
+下記の例ではConfigMapリソースに対して、<code>ownerReferences</code>に指定されているMarkdownViewリソースの名前でインデックスを作成しています。</p>
+<pre><code class="language-go">const ownerControllerField = ".metadata.ownerReference.controller"
+
+func indexByOwnerMarkdownView(obj client.Object) []string {
+    cm := obj.(*corev1.ConfigMap)
+    owner := metav1.GetControllerOf(cm)
+    if owner == nil {
+        return nil
+    }
+    if owner.APIVersion != viewv1.GroupVersion.String() || owner.Kind != "MarkdownView" {
+        return nil
+    }
+    return []string{owner.Name}
+}
+
+func (r *MarkdownViewReconciler) SetupWithManager(mgr ctrl.Manager) error {
+    err := mgr.GetFieldIndexer().IndexField(ctx, &amp;corev1.ConfigMap{}, ownerControllerField, indexByOwnerMarkdownView)
+    if err != nil {
+        return err
+    }
+    return nil
+}
+</code></pre>
+<p><code>IndexField</code>の第3引数のフィールド名には、どのフィールドを利用してインデックスを張っているのかを示す文字列を指定します。
+ここでは、<code>.metadata.ownerReference.controller</code>という文字列を指定しています。
+実際にインデックスに利用しているフィールドのパスと一致していなくても問題はないのですが、一致させると可読性がよくなるのでおすすめです。</p>
+<p>なおインデックスはGVKごとに作成されるので、異なるタイプのリソース間でフィールド名が同じになっても問題ありません。
+またnamespaceスコープのリソースの場合は、内部的にフィールド名にnamespace名を付与して管理しているので、明示的にフィールド名にnamespaceを含める必要はありません。
+インデクサーが返す値はスライスになっていることから分かるように、複数の値にマッチするようなインデックスの構成も可能です。</p>
+<p>上記のようなインデックスを作成しておくと、<code>List()</code>を呼び出す際に特定のフィールドが指定した値と一致するリソースだけを取得できます。
+例えば以下の例であれば、ownerReferenceに指定したMarkdownViewリソースがセットされているConfigMapだけを取得できます。</p>
+<pre><code class="language-go">var cms corev1.ConfigMapList
+err := r.List(ctx, &amp;cms, client.MatchingFields(map[string]string{ownerControllerField: mdView.Name}))
+if err != nil {
+    return err
+}
+</code></pre>
+<h2 id="eventrecorder-1"><a class="header" href="#eventrecorder-1">EventRecorder</a></h2>
+<p>在自定义资源的状态中保存了当前状态，如果想记录过去执行过的处理情况，可以利用Kubernetes提供的<a href="https://pkg.go.dev/k8s.io/api/core/v1?tab=doc#Event">Event</a>资源。</p>
+<p>Manager提供了记录事件的功能，通过<code>GetEventRecorderFor</code>可以获取<a href="https://pkg.go.dev/k8s.io/client-go/tools/record?tab=doc#EventRecorder">EventRecorder</a>。
+在初始化Reconciler时，通过传递EventRecorder来记录事件。</p>
+<pre><code class="language-go">// 初始化Reconciler时传递EventRecorder
+eventRecorder := mgr.GetEventRecorderFor("markdownview-controller")
+</code></pre>
+<p>在Reconciler中将其作为字段持有。</p>
+<pre><code class="language-go">// 在Reconciler中持有EventRecorder
+type MarkdownViewReconciler struct {
+    // Other fields
+    eventRecorder record.EventRecorder
+}
+</code></pre>
+<p>可通过<code>Event</code>, <code>Eventf</code>, <code>AnnotatedEventf</code>等函数来记录事件。
+在这里，我们决定在更新状态时记录以下类型的事件。注意，事件类型只能是<code>EventTypeNormal</code>或<code>EventTypeWarning</code>。</p>
+<pre><code class="language-go">// 记录事件
+r.eventRecorder.Event(resource, corev1.EventTypeNormal, "StatusUpdated", "Status has been updated")
+</code></pre>
+<p>Event资源与指定的资源关联，并且与该资源相同的命名空间中创建Event资源。
+为了让自定义控制器能够创建Event资源，需要添加下面的RBAC标记，并通过<code>make manifests</code>更新清单文件。</p>
+<h2 id="healthprobe-1"><a class="header" href="#healthprobe-1">HealthProbe</a></h2>
+<p>Manager 提供了创建 API 端点以进行健康检查的能力。</p>
+<p>要使用健康检查功能，请在创建Manager时通过“HealthProbeBindAddress”指定端点地址。</p>
+<p><a href="../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>然后，使用<code>AddHealthzCheck</code>和<code>AddReadyzCheck</code>注册处理程序。
+默认情况下，使用一个名为<code>healthz.Ping</code>的函数，该函数不执行任何操作，但您也可以注册自己的函数。</p>
+<p><a href="../../codes/50_completed/cmd/main.go">import:“health”,unindent:“true”</a></p>
+<p>在自定义控制器清单中，此运行状况检查 API 被指定用作<code>livenessProbe</code>和<code>readinessProbe</code>。</p>
+<p><a href="../../codes/50_completed/config/manager/manager.yaml">import:“probe”,unindent:“true”</a></p>
+<h2 id="fieldindexer-1"><a class="header" href="#fieldindexer-1">FieldIndexer</a></h2>
+<p>正如<a href="./client.html">如何使用客户端</a>中介绍的，在检索多个资源时，可以通过标签或命名空间来缩小范围。
+但是，您可能还想根据特定字段的值进行过滤。
+控制器运行时提供了一种对内存中缓存的资源进行索引的机制。</p>
+<p><img src="./img/index.png" alt="索引" /></p>
+<p>要使用索引，请提前使用 Manager 的 GetFieldIndexer() 指定基于哪个字段值创建索引。
+在下面的示例中，使用“ownerReferences”中指定的 MarkdownView 资源的名称为 ConfigMap 资源创建索引。</p>
+<p>对于“IndexField”的第三个参数的字段名称，指定一个字符串，指示哪个字段用于索引。
+在这里，我们指定字符串“.metadata.ownerReference.controller”。
+即使路径与索引实际使用的字段路径不匹配也没有问题，但建议匹配，这样可以提高可读性。</p>
+<p>请注意，索引是为每个GVK创建的，因此即使不同类型的资源之间字段名称相同也没有问题。
+另外，对于命名空间范围资源，命名空间名称在内部分配给字段名称并进行管理，因此不需要在字段名称中显式包含命名空间。
+从索引器返回的值是切片可以看出，可以构造匹配多个值的索引。</p>
+<p>通过创建像上面这样的索引，您可以在调用“List()”时仅检索特定字段与指定值匹配的资源。
+例如，在下面的示例中，只能检索拥有在ownerReference中指定的MarkdownView资源的ConfigMap。</p>
+<pre><code class="language-go">var cms corev1.ConfigMapList
+err := r.List(ctx, &amp;cms, client.MatchingFields(map[string]string{ownerControllerField: mdView.Name}))
+if err != nil {
+    return err
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../controller-runtime/deletion.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../controller-runtime/monitoring.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../controller-runtime/deletion.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../controller-runtime/monitoring.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

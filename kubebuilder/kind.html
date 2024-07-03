@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>检查自定义控制器的操作 - mdBook Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Create book from markdown files. Like Gitbook but implemented in Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Kubebuilder制作和学习</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../introduction/basics.html"><strong aria-hidden="true">1.2.</strong> 字定制控制器的基础知识</a></li><li class="chapter-item expanded "><a href="../introduction/sample.html"><strong aria-hidden="true">1.3.</strong> MarkdownView控制器</a></li><li class="chapter-item expanded "><a href="../introduction/references.html"><strong aria-hidden="true">1.4.</strong> 参考资料</a></li></ol></li><li class="chapter-item expanded "><a href="../kubebuilder/index.html"><strong aria-hidden="true">2.</strong> Kubebuilder</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kubebuilder/new-project.html"><strong aria-hidden="true">2.1.</strong> 创建项目模板</a></li><li class="chapter-item expanded "><a href="../kubebuilder/api.html"><strong aria-hidden="true">2.2.</strong> API模板创建</a></li><li class="chapter-item expanded "><a href="../kubebuilder/webhook.html"><strong aria-hidden="true">2.3.</strong> 创建Webhook模板</a></li><li class="chapter-item expanded "><a href="../kubebuilder/kind.html" class="active"><strong aria-hidden="true">2.4.</strong> 检查自定义控制器的操作</a></li></ol></li><li class="chapter-item expanded "><a href="../controller-tools/index.html"><strong aria-hidden="true">3.</strong> controller-tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../controller-tools/rbac.html"><strong aria-hidden="true">3.1.</strong> RBAC清单的生产</a></li><li class="chapter-item expanded "><a href="../controller-tools/webhook.html"><strong aria-hidden="true">3.2.</strong> Webhook的产生表现</a></li></ol></li><li class="chapter-item expanded "><a href="../controller-runtime/index.html"><strong aria-hidden="true">4.</strong> controller-runtime</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../controller-runtime/reconcile.html"><strong aria-hidden="true">4.1.</strong> Reconcile调和</a></li><li class="chapter-item expanded "><a href="../controller-runtime/controller_test.html"><strong aria-hidden="true">4.2.</strong> 控制器测试</a></li><li class="chapter-item expanded "><a href="../controller-runtime/webhook.html"><strong aria-hidden="true">4.3.</strong> Webhook实现</a></li><li class="chapter-item expanded "><a href="../controller-runtime/webhook_test.html"><strong aria-hidden="true">4.4.</strong> Webhook测试</a></li><li class="chapter-item expanded "><a href="../controller-runtime/deletion.html"><strong aria-hidden="true">4.5.</strong> 删除资源</a></li><li class="chapter-item expanded "><a href="../controller-runtime/manager.html"><strong aria-hidden="true">4.6.</strong> Manager</a></li><li class="chapter-item expanded "><a href="../controller-runtime/monitoring.html"><strong aria-hidden="true">4.7.</strong> 监控</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">mdBook Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/mdBook/tree/master/guide" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/mdBook/edit/master/guide/src/kubebuilder/kind.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="检查自定义控制器的操作"><a class="header" href="#检查自定义控制器的操作">检查自定义控制器的操作</a></h1>
+<p>通过Kubebuilder构建生成的项目，并在<a href="https://kind.sigs.k8s.io/docs/user/quick-start/">Kind</a>环境中运行它。</p>
+<p>Kind 是一种用于在本地环境构建 Kubernetes 集群的工具，可以轻松进行控制器的测试和操作确认。</p>
+<h2 id="kind启动集群"><a class="header" href="#kind启动集群">kind启动集群</a></h2>
+<p>首先，使用<code>kind</code>命令创建kubernetes集群。</p>
+<pre><code class="language-console">$ kind create cluster
+</code></pre>
+<h2 id="安装cert-manager"><a class="header" href="#安装cert-manager">安装cert-manager</a></h2>
+<p>为了给<code>Webhook</code>颁发证书，需要使用<code>cert-manager</code>。执行以下命令部署<code>cert-manager</code>（<a href="https://cert-manager.io/docs/installation/kubernetes/">参考</a>）：</p>
+<pre><code class="language-console">$ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
+</code></pre>
+<p>通过如下命令来确认<code>cert-manager</code>的pod是否已经启动。</p>
+<pre><code class="language-console">$ kubectl get pod -n cert-manager
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-7dd5854bb4-whlcn              1/1     Running   0          26s
+cert-manager-cainjector-64c949654c-64wjk   1/1     Running   0          26s
+cert-manager-webhook-6bdffc7c9d-hkr8h      1/1     Running   0          26s
+</code></pre>
+<h2 id="准备控制器的容器镜像"><a class="header" href="#准备控制器的容器镜像">准备控制器的容器镜像</a></h2>
+<p>构建容器镜像的命令。</p>
+<pre><code class="language-console">$ make docker-build
+</code></pre>
+<p>要使用此容器镜像，您需要将构建的容器镜像推送到<code>DockerHub</code>等容器注册表，或者将其加载到您的<code>kind</code>环境中。</p>
+<p>以下是将容器镜像加载到<code>kind</code>环境中的命令：</p>
+<pre><code class="language-console">$ kind load docker-image controller:latest
+</code></pre>
+<p>此外，如果将<code>latest</code>指定为容器镜像的标签，那么<code>ImagePullPolicy</code>将默认为<code>Always</code>，这可能会导致加载的容器镜像未被使用，即使它已经存在。
+(<a href="https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster">参考</a>)</p>
+<p>因此，请在 <code>config/manager/manager.yaml</code> 文件中添加 <code>imagePullPolicy: IfNotPresent</code>。</p>
+<p><a href="../../codes/10_tilt/config/manager/manager.yaml">import:“containers”</a></p>
+<h2 id="验证控制器操作"><a class="header" href="#验证控制器操作">验证控制器操作</a></h2>
+<p>将自定义资源定义(CRD)应用到kubernetes集群中。</p>
+<pre><code class="language-console">$ make install
+</code></pre>
+<p>接下来，将应用各种清单文件。</p>
+<pre><code class="language-console">$ make deploy
+</code></pre>
+<p>确认控制器的pod知否已经处于运行状态。</p>
+<pre><code class="language-console">$ kubectl get pod -n markdown-view-system
+NAME                                                READY   STATUS    RESTARTS   AGE
+markdown-view-controller-manager-5bc678bbf9-vb9r5   2/2     Running   0          30s
+</code></pre>
+<p>接下来，查看控制器的日志</p>
+<pre><code class="language-console">$ kubectl logs -n markdown-view-system markdown-view-controller-manager-5bc678bbf9-vb9r5 -c manager -f
+</code></pre>
+<p>现在，将应用示例的自定义资源。</p>
+<pre><code class="language-console">$ kubectl apply -f config/samples/view_v1_markdownview.yaml
+</code></pre>
+<p>如果在控制器中看到类似<code>Webhook</code>或<code>Reconcile</code>的消息，则表示操作成功。</p>
+<pre><code class="language-console">2021-07-10T09:29:49.311Z        INFO    controller-runtime.metrics      metrics server is starting to listen     {"addr": "127.0.0.1:8080"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.builder      Registering a mutating webhook   {"GVK": "view.zoetrope.github.io/v1, Kind=MarkdownView", "path": "/mutate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.webhook      registering webhook      {"path": "/mutate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.builder      Registering a validating webhook {"GVK": "view.zoetrope.github.io/v1, Kind=MarkdownView", "path": "/validate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.webhook      registering webhook      {"path": "/validate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    setup   starting manager
+I0710 09:29:49.312373       1 leaderelection.go:243] attempting to acquire leader lease markdown-view-system/c124e721.zoetrope.github.io...
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.manager      starting metrics server  {"path": "/metrics"}
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.webhook.webhooks     starting webhook server
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.certwatcher  Updated current TLS certificate
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.webhook      serving webhook server   {"host": "", "port": 9443}
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.certwatcher  Starting certificate watcher
+I0710 09:29:49.409787       1 leaderelection.go:253] successfully acquired lease markdown-view-system/c124e721.zoetrope.github.io
+2021-07-10T09:29:49.409Z        DEBUG   controller-runtime.manager.events       Normal  {"object": {"kind":"ConfigMap","namespace":"markdown-view-system","name":"c124e721.zoetrope.github.io","uid":"b48865ea-3d05-47bd-be4f-4d03a14b7a36","apiVersion":"v1","resourceVersion":"1982"}, "reason": "LeaderElection", "message": "markdown-view-controller-manager-5bc678bbf9-vb9r5_d64b0043-4a95-432e-9c76-3001247a87ac became leader"}
+2021-07-10T09:29:49.409Z        DEBUG   controller-runtime.manager.events       Normal  {"object": {"kind":"Lease","namespace":"markdown-view-system","name":"c124e721.zoetrope.github.io","uid":"3ef3dcde-abbb-440b-9052-1c85ed01d67d","apiVersion":"coordination.k8s.io/v1","resourceVersion":"1983"}, "reason": "LeaderElection", "message": "markdown-view-controller-manager-5bc678bbf9-vb9r5_d64b0043-4a95-432e-9c76-3001247a87ac became leader"}
+2021-07-10T09:29:49.410Z        INFO    controller-runtime.manager.controller.markdownview       Starting EventSource    {"reconciler group": "view.zoetrope.github.io", "reconciler kind": "MarkdownView", "source": "kind source: /, Kind="}
+2021-07-10T09:29:49.410Z        INFO    controller-runtime.manager.controller.markdownview       Starting Controller     {"reconciler group": "view.zoetrope.github.io", "reconciler kind": "MarkdownView"}
+2021-07-10T09:29:49.511Z        INFO    controller-runtime.manager.controller.markdownview       Starting workers        {"reconciler group": "view.zoetrope.github.io", "reconciler kind": "MarkdownView", "worker count": 1}
+2021-07-10T09:33:53.622Z        DEBUG   controller-runtime.webhook.webhooks     received request {"webhook": "/mutate-view-zoetrope-github-io-v1-markdownview", "UID": "20fe30b5-6d45-4592-ae4b-ee5048e054d1", "kind": "view.zoetrope.github.io/v1, Kind=MarkdownView", "resource": {"group":"view.zoetrope.github.io","version":"v1","resource":"markdownviews"}}
+2021-07-10T09:33:53.623Z        INFO    markdownview-resource   default {"name": "markdownview-sample"}
+2021-07-10T09:33:53.623Z        DEBUG   controller-runtime.webhook.webhooks     wrote response   {"webhook": "/mutate-view-zoetrope-github-io-v1-markdownview", "code": 200, "reason": "", "UID": "20fe30b5-6d45-4592-ae4b-ee5048e054d1", "allowed": true}
+2021-07-10T09:33:53.626Z        DEBUG   controller-runtime.webhook.webhooks     received request {"webhook": "/validate-view-zoetrope-github-io-v1-markdownview", "UID": "904fc35e-4415-4a90-af96-52cbe1cef1b7", "kind": "view.zoetrope.github.io/v1, Kind=MarkdownView", "resource": {"group":"view.zoetrope.github.io","version":"v1","resource":"markdownviews"}}
+2021-07-10T09:33:53.626Z        INFO    markdownview-resource   validate create {"name": "markdownview-sample"}
+2021-07-10T09:33:53.626Z        DEBUG   controller-runtime.webhook.webhooks     wrote response   {"webhook": "/validate-view-zoetrope-github-io-v1-markdownview", "code": 200, "reason": "", "UID": "904fc35e-4415-4a90-af96-52cbe1cef1b7", "allowed": true}
+</code></pre>
+<h2 id="高效开发流程"><a class="header" href="#高效开发流程">高效开发流程</a></h2>
+<p>在开发过程中，您需要重写自定义控制器实现并多次检查其操作。
+您可以按照以下步骤高效地进行开发</p>
+<ul>
+<li>如果控制器实现发生更改，请使用以下命令构建容器映像并将其重新加载到<code>kind</code>环境中。</li>
+</ul>
+<pre><code>$ make docker-build
+$ kind load docker-image controller:latest
+</code></pre>
+<ul>
+<li>如果<code>CRD</code>有任何更改，请运行以下命令。但是，如果您进行不兼容的更改，此命令将会失败，因此请先运行<code>make uninstall</code>。</li>
+</ul>
+<pre><code>$ make install
+</code></pre>
+<ul>
+<li>如果除CRD之外的清单文件有更改，请执行以下命令。但是，如果您进行不兼容的更改，此命令将会失败，因此请提前运行<code>make undeploy</code></li>
+<li></li>
+</ul>
+<pre><code>$ make deploy
+</code></pre>
+<ul>
+<li>可以通过如下命令进行重新启动自定义控制器</li>
+</ul>
+<pre><code>$ kubectl rollout restart -n markdown-view-system deployment markdown-view-controller-manager
+</code></pre>
+<h2 id="利用tilt进行高效开发"><a class="header" href="#利用tilt进行高效开发">利用Tilt进行高效开发</a></h2>
+<p>如上所述，在开发自定义控制器时，每次更改源代码或者清单时都需要多次执行多个make命令，非常麻烦</p>
+<p><a href="https://tilt.dev">Tilt</a>允许监视源代码和清单的更改，它将自动重建容器镜像、将清单应用到Kubernetes集群、重新启动pod等。</p>
+<p>如果有兴趣可以查看如下文章。</p>
+<ul>
+<li><a href="https://zenn.dev/zoetro/articles/fba4c77a7fa3fb">使用Tilt简化自定义控制器开发</a></li>
+</ul>
+<p>本书中的示例程序是为了可以使用Tilt而设置的。
+详情请参阅下面的代码。</p>
+<ul>
+<li>https://github.com/zoetrope/kubebuilder-training/tree/main/codes/10_tilt</li>
+</ul>
+<p>首先，参考以下页面安装<a href="https://aquaproj.github.io">aqua</a>。</p>
+<ul>
+<li>https://aquaproj.github.io/docs/reference/install</li>
+</ul>
+<p>接下来，使用aqua安装各种工具。</p>
+<pre><code class="language-console">$ aqua i
+</code></pre>
+<p>接下来，运行以下命令启动<code>Kubernetes</code>集群和容器注册表，并部署<code>cert-manager</code>。</p>
+<pre><code class="language-console">$ make start
+</code></pre>
+<p>最后，启动tilt并在浏览器中访问http://localhost:10350</p>
+<pre><code class="language-console">$ tilt up
+</code></pre>
+<p>如果一切正常，该类型的资源应该会自动更新，以响应源代码或清单中的更改。</p>
+<p>完成后，执行以下命令。</p>
+<pre><code class="language-console">$ make stop
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../kubebuilder/webhook.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../controller-tools/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../kubebuilder/webhook.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../controller-tools/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

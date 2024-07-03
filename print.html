@@ -1,0 +1,1630 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>mdBook Documentation</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Create book from markdown files. Like Gitbook but implemented in Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Kubebuilder制作和学习</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="introduction/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="introduction/basics.html"><strong aria-hidden="true">1.2.</strong> 字定制控制器的基础知识</a></li><li class="chapter-item expanded "><a href="introduction/sample.html"><strong aria-hidden="true">1.3.</strong> MarkdownView控制器</a></li><li class="chapter-item expanded "><a href="introduction/references.html"><strong aria-hidden="true">1.4.</strong> 参考资料</a></li></ol></li><li class="chapter-item expanded "><a href="kubebuilder/index.html"><strong aria-hidden="true">2.</strong> Kubebuilder</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="kubebuilder/new-project.html"><strong aria-hidden="true">2.1.</strong> 创建项目模板</a></li><li class="chapter-item expanded "><a href="kubebuilder/api.html"><strong aria-hidden="true">2.2.</strong> API模板创建</a></li><li class="chapter-item expanded "><a href="kubebuilder/webhook.html"><strong aria-hidden="true">2.3.</strong> 创建Webhook模板</a></li><li class="chapter-item expanded "><a href="kubebuilder/kind.html"><strong aria-hidden="true">2.4.</strong> 检查自定义控制器的操作</a></li></ol></li><li class="chapter-item expanded "><a href="controller-tools/index.html"><strong aria-hidden="true">3.</strong> controller-tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="controller-tools/rbac.html"><strong aria-hidden="true">3.1.</strong> RBAC清单的生产</a></li><li class="chapter-item expanded "><a href="controller-tools/webhook.html"><strong aria-hidden="true">3.2.</strong> Webhook的产生表现</a></li></ol></li><li class="chapter-item expanded "><a href="controller-runtime/index.html"><strong aria-hidden="true">4.</strong> controller-runtime</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="controller-runtime/reconcile.html"><strong aria-hidden="true">4.1.</strong> Reconcile调和</a></li><li class="chapter-item expanded "><a href="controller-runtime/controller_test.html"><strong aria-hidden="true">4.2.</strong> 控制器测试</a></li><li class="chapter-item expanded "><a href="controller-runtime/webhook.html"><strong aria-hidden="true">4.3.</strong> Webhook实现</a></li><li class="chapter-item expanded "><a href="controller-runtime/webhook_test.html"><strong aria-hidden="true">4.4.</strong> Webhook测试</a></li><li class="chapter-item expanded "><a href="controller-runtime/deletion.html"><strong aria-hidden="true">4.5.</strong> 删除资源</a></li><li class="chapter-item expanded "><a href="controller-runtime/manager.html"><strong aria-hidden="true">4.6.</strong> Manager</a></li><li class="chapter-item expanded "><a href="controller-runtime/monitoring.html"><strong aria-hidden="true">4.7.</strong> 监控</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">mdBook Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/mdBook/tree/master/guide" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="kubebuilder制作和学习"><a class="header" href="#kubebuilder制作和学习">Kubebuilder制作和学习</a></h1>
+<p>在本文档中，您将学习如何使用Kuberbuilder开发自定义控制器/运营商。</p>
+<h2 id="什么是kubebuilder"><a class="header" href="#什么是kubebuilder">什么是Kubebuilder？</a></h2>
+<p>KubeBuilder是开发自定义控制器/操作员扩展Kubernetes的框架。</p>
+<p>Kubernetes可以使用部署和服务等资源轻松地提供应用程序部署和服务。
+除了使用标准资源外，用户还可以定义自己的自定义资源并扩展Kubernetes。
+处理此自定义资源的程序称为自定义控制器。
+用于使用自定义控制器自动化其软件设置和操作的程序称为操作员。</p>
+<p>实施自定义控制器和运营商的示例包括以下内容：</p>
+<ul>
+<li><a href="https://cert-manager.io/docs/">cert-manager</a></li>
+<li><a href="https://github.com/cybozu-go/moco">MOCO</a></li>
+</ul>
+<p>Cert-Manager是一个自定义控制器，可以使用自定义资源（例如证书资源和ISER资源）自动化证书问题。
+MoCo是使用MySQLCluster资源和backuppolicy Resources构建MySQL群集和管理自动备份的管理。</p>
+<p>通过Kubebuilder、client-go您可以通过提供自动生成易于使用和抽象的清单来轻松开发自定义控制器（crd）。</p>
+<p>KubeBuilder由以下工具和库组成。</p>
+<ul>
+<li><a href="https://github.com/kubernetes-sigs/kubebuilder">kubebuilder</a>
+<ul>
+<li>生成自定义控制器项目模板的工具</li>
+</ul>
+</li>
+<li><a href="https://github.com/kubernetes-sigs/controller-tools">controller-tools</a>
+<ul>
+<li>从GO源代码生成清单的工具</li>
+</ul>
+</li>
+<li><a href="https://github.com/kubernetes-sigs/controller-runtime">controller-runtime</a>
+<ul>
+<li>用于实现自定义控制器的框架库</li>
+</ul>
+</li>
+</ul>
+<p>通过这个文档，我们将学习如何使用这些工具实现自定义控制器。</p>
+<h2 id="兼容版本"><a class="header" href="#兼容版本">兼容版本</a></h2>
+<ul>
+<li>Kubebuilder: v3.11.1</li>
+<li>controller-tools: v0.12.0</li>
+<li>controller-runtime: v0.15.0</li>
+</ul>
+<h2 id="更改日志"><a class="header" href="#更改日志">更改日志</a></h2>
+<ul>
+<li>2020/07/30: 第一版出版</li>
+<li>2021/04/29: Kubebuilder V3兼容</li>
+<li>2021/07/25: 将样本更改为MarkdownView Controller并查看整个文本</li>
+<li>2022/06/20: Kubebuilder v3.4.1兼容</li>
+<li>2022/07/18: Kubebuilder v3.5.0兼容，审查样本代码</li>
+<li>2023/08/29: KubeBuilder v3.11.1兼容</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="安装"><a class="header" href="#安装">安装</a></h1>
+<p>使用 Kubebuilder 时，需要以下软件。请按照步骤进行设置。</p>
+<ul>
+<li>Go 1.20
+<ul>
+<li><a href="https://golang.org/doc/install">Getting Started - The Go Programming Language</a></li>
+</ul>
+</li>
+<li>Docker 24.0.2
+<ul>
+<li><a href="https://docs.docker.com/get-docker/">Get Docker | Docker Documentation</a></li>
+</ul>
+</li>
+<li>kind v0.20.0
+<ul>
+<li><a href="https://kind.sigs.k8s.io/docs/user/quick-start/">Quick Start | kind</a></li>
+</ul>
+</li>
+<li>Kubebuilder v3.11.1
+<ul>
+<li><a href="https://book.kubebuilder.io/quick-start.html">Quick Start - The Kubebuilder Book</a></li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="自定义开发控制器的基础知识"><a class="header" href="#自定义开发控制器的基础知识">自定义开发控制器的基础知识</a></h1>
+<p>本节介绍了开发自定义控制器所需的Kubernetes的基本知识。</p>
+<h2 id="申明式declarative"><a class="header" href="#申明式declarative">申明式（Declarative）</a></h2>
+<p>Kubernetes中最重要的概念是声明性的API。</p>
+<p>例如，如果要在kubernetes上部署nginx，我们只需要通过如下YAML格式中描述的清单并创建部署资源。</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+</code></pre>
+<p>在<code>Kubernetes</code>中，有管理各种资源的控制器。
+比如<code>Deployment</code>资源在<code>kube-apiserver</code>上注册时，管理<code>Deployment</code>的控制器会创建一个新的<code>ReplicaSet</code>资源。
+接下来，当注册<code>ReplicaSet</code>资源时，管理<code>ReplicaSet</code>的控制器会创建在<code>spec.replicas</code>中指定的三个新 Pod。
+此外，当<code>Pod</code>资源在<code>kube-apiserver</code>上注册时，一个名为<code>kube-scheduler</code>的程序会确定<code>Pod</code>将被放置的节点并更新<code>Pod</code>信息。
+每个节点上运行的名为<code>kubelet</code>的程序在找到具有其节点名称的<code>Pod</code>资源时会启动一个容器。</p>
+<p><img src="introduction/./img/declarative.png" alt="Declarative API" /></p>
+<p>例如我们可以通过Deployment资源的<code>Spec.Replicas'字段来控制pod数量，可以增加或者减少</code>spec.replicas`来减少或增加pod。</p>
+<p>这样，在<code>Kubernetes</code>中，多个程序根据用户声明的清单协同工作，并调整系统使其处于所需的状态（在本例中，三个<code>Nginx</code>实例正在运行）。</p>
+<p>通过使用声明式而非命令式（Imperative）机制，运行在 Kubernetes 上的应用程序可以实现高可用性和可扩展性。
+然而，控制器的实现可能非常困难，因为它必须考虑各种情况。</p>
+<h2 id="crdcustom-resource-definition和crcustom-resource"><a class="header" href="#crdcustom-resource-definition和crcustom-resource">CRD(Custom Resource Definition)和CR(Custom Resource)</a></h2>
+<p><code>Kubernetes</code>附带许多标准资源，比如<code>Deployments</code>和<code>Pod</code>。
+虽然在某种程度上使用标准资源构建系统是可能的，例如，如果你想在<code>Kubernetes</code>上自动化证书颁发或<code>MySQL</code>集群管理，你将需要自定义开发控制器。</p>
+<p>因此，提供了自定义资源<code>（CR）</code>作为<code>Kubernetes</code>用户自由使用新资源的机制
+为了使用自定义资源，您需要准备 <code>CRD</code>（自定义资源定义）作为其定义。<code>CRD</code>允许您以<code>OpenAPI v3.0</code>格式编写验证，如下所示</p>
+<ul>
+<li><a href="https://github.com/zoetrope/kubebuilder-training/blob/main/codes/50_completed/config/crd/bases/view.zoetrope.github.io_markdownviews.yaml">CRD实例</a></li>
+</ul>
+<h2 id="自定义控制器"><a class="header" href="#自定义控制器">自定义控制器</a></h2>
+<p>在 Kubernetes 中，检查资源状态并执行某些处理的程序称为控制器。
+例如，一个控制器正在基于<code>Deployment</code>资源创建<code>ReplicaSet</code>资源。</p>
+<p>如果您查看Kubernetes源代码，您会发现有许多与标准资源相对应的控制器。</p>
+<ul>
+<li>https://github.com/kubernetes/kubernetes/tree/master/pkg/controller</li>
+</ul>
+<p>相比之下，用户定义的自定义资源控制器称为自定义控制器。</p>
+<p>下面，我们将介绍实现控制器时的重要概念。</p>
+<h3 id="reconciliation-loop"><a class="header" href="#reconciliation-loop">Reconciliation Loop</a></h3>
+<p>Reconciliation Loop协调循环是自定义控制器的主要逻辑。</p>
+<p>将资源中描述的状态与系统当前的状态进行比较，并进行调整以消除差异。</p>
+<p><img src="introduction/./img/reconcile_loop.png" alt="Reconcile Loop" /></p>
+<p>在前面的部署实例中，资源定义的是三个pod，协调循环（Reconciliation Loop）通过增加或者减少pod的数量来匹配理想状态来处理该协调过程。</p>
+<h3 id="冪等"><a class="header" href="#冪等">冪等</a></h3>
+<p>Reconciliation Loop(协调循环)必须是幂等的。</p>
+<p>比如我们之前的示例中pod的控制器，如果这个控制器被申明为3个pod，那么无论调用多少次的Reconcicle,pod的数量都始终保持是3。当存在3个pod，再次调用reconcile时，不应在创建三个pod或有任何报错信息。</p>
+<p>显而易见，在kubernetes中，通过命令式基础设施自动化工具通常不是幂等的。</p>
+<h3 id="水平触发和边缘触发"><a class="header" href="#水平触发和边缘触发">水平触发和边缘触发</a></h3>
+<p><code>Reconciliation Loop</code>是指在资源被新注册或编辑时，或者目标资源的状态发生变化时，必须进行适当的处理。
+例如，在前述的例子中，如果<code>Deployment</code>资源中描述的副本数增加，或者由于服务器故障导致 Pod 数量减少时，则需要创建新的 Pod。</p>
+<p>在这种情况下，根据状态变化事件执行处理被称为边缘触发器，根据当前状态执行处理被称为水平触发。</p>
+<ul>
+<li>
+<p>水平触发: 定期检查各个集群内各种对象的状态，如果满足某种条件（例如pod running 状态），对应的handler就一直触发一些动作。</p>
+</li>
+<li>
+<p>边缘触发: 当某些对象发生了状态改变（例如pod 从running到不健康状态，从没有pod到创建出一个pod），在改变的时刻对应的handler会触发一个行为。</p>
+</li>
+</ul>
+<p>(<a href="https://hackernoon.com/level-triggering-and-reconciliation-in-kubernetes-1f17fe30333d">参考</a>)</p>
+<p><img src="introduction/./img/edge_level_trigger.png" alt="Edge-driven vs. Level-driven Trigger" /></p>
+<p>如图所示，如果<code>Reconciliation Loop</code>仅关注事件（例如<code>Replica</code>数量的增减），那么如果由于某些原因（例如控制器故障）导致事件丢失，期望状态和当前状态就会不一致。
+另一方面，如果关注的是当前状态（例如当前的Replica数量），即使事件丢失，也能够使状态收敛到期望状态。</p>
+<p><code>Kubebuilder</code>提供的框架中，当各种事件发生时会调用<code>Reconciliation Loop</code>。
+但是，此时<code>Reconciliation Loop</code>不会接收到值如何变化的信息。
+必须检查当前状态，并根据该状态实现相应的处理。
+通过这种机制，可以实现对事件丢失和故障具有较强容错能力的控制器。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="markdownview控制器"><a class="header" href="#markdownview控制器">MarkdownView控制器</a></h1>
+<p>本文档将实施一个名为<code>MarkdownView</code>的自定义控制器作为示例。MarkdownView 控制器提供了一个服务，用于渲染用户提供的 Markdown 并使其可以在浏览器中查看。</p>
+<p>我们将使用<code>mdBook</code>来进行<code>Markdown</code>的渲染。</p>
+<ul>
+<li>https://rust-lang.github.io/mdBook/</li>
+</ul>
+<p><code>MarkdownView</code>控制器的主要处理流程如下所示。</p>
+<p><img src="introduction/./img/markdownview_controller.png" alt="MarkdownView Controller" /></p>
+<ul>
+<li>用户创建<code>MarkdownView</code>自定义资源。</li>
+<li>MarkdownView 控制器根据创建的<code>MarkdownView</code>资源的内容，创建必要的各种资源。
+<ul>
+<li>将自定义资源中描述的<code>Markdown</code>创建为<code>ConfigMap</code>资源。</li>
+<li>创建用于渲染<code>Markdown</code>的<code>mdBook</code>作为<code>Deployment</code>资源。</li>
+<li>创建用于访问<code>mdBook</code>的<code>Service</code>资源。</li>
+</ul>
+</li>
+<li>用户可以通过创建的服务访问并查看渲染后的<code>Markdown</code>内容。</li>
+</ul>
+<p><code>MarkdownView</code>自定义资源可以指定以下内容:<code>Markdown</code>的内容、用于渲染的<code>mdBook</code>容器镜像以及副本数。</p>
+<p><a href="introduction/../../codes/50_completed/config/samples/view_v1_markdownview.yaml">import</a></p>
+<p>以下是参考源代码，请参考</p>
+<ul>
+<li>https://github.com/zoetrope/kubebuilder-training/tree/main/codes</li>
+</ul>
+<p>目录结构如下所示：</p>
+<pre><code>codes
+├── 00_scaffold:  Kubebuilder生成的代码
+├── 10_tilt:      添加使用`Tilt`设置开发环境的步骤
+├── 20_manifests: 生成`CRD`, `RBAC`, `Webhook`的清单
+├── 30_client:    添加客户端库使用示例
+├── 40_reconcile: 实现`Reconcile`过程和`Webhook`
+└── 50_completed: 添加Finalizer(终结处理)、Recoder(记录器)、监控的代码
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="参考信息"><a class="header" href="#参考信息">参考信息</a></h1>
+<h2 id="参考资料"><a class="header" href="#参考资料">参考资料</a></h2>
+<p>本资料省略了许多内容。如果想了解更多的详情，请参考如下资料。</p>
+<ul>
+<li><a href="https://book.kubebuilder.io/">The Kubebuilder Book</a>
+<ul>
+<li>这是<code>kubebuilder</code>的官方文档</li>
+</ul>
+</li>
+<li><a href="https://nextpublishing.jp/book/11389.html">实践入门Kubernetes自定义控制器之路</a>
+<ul>
+<li>这本书广泛而易懂地解释了创建自定义控制器所需的知识。</li>
+<li>这本书详细解释了如何使用 client-go、Kubebuilder 和 Operator SDK 实现控制器。</li>
+</ul>
+</li>
+<li><a href="https://learning.oreilly.com/library/view/programming-kubernetes/9781492047094/">Programming Kubernetes</a>
+<ul>
+<li>在开发控制器时需要的一些关键技术，如 client-go 和自定义资源（Custom Resources）。这是一本详细解释<code>Kubernetes</code>构成要素的书籍。</li>
+</ul>
+</li>
+<li><a href="https://zenn.dev/zoetro">Zenn - Zoetro文章列表</a>
+<ul>
+<li>本资料中的补充内容包括如何在 Reconcile 循环中使用 Server Side Apply，以及 controller-runtime 的日志记录功能等。</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考实现"><a class="header" href="#参考实现">参考实现</a></h2>
+<p>本资料介绍的技术是参考了如下项目中实际使用的内容。如果感兴趣，请务必阅读其代码。</p>
+<ul>
+<li><a href="https://github.com/topolvm/topolvm">TopoLVM</a>
+<ul>
+<li>实现了LVM进行动态供给的CSI插件</li>
+</ul>
+</li>
+<li><a href="https://github.com/cybozu-go/moco">MOCO</a>
+<ul>
+<li>自动化构建mysql集群的operator</li>
+</ul>
+</li>
+<li><a href="https://github.com/cybozu-go/coil">Coil</a>
+<ul>
+<li>CNI（Container Network Interface）插件</li>
+</ul>
+</li>
+<li><a href="https://github.com/cybozu-go/accurate">Accurate</a>
+<ul>
+<li>用于管理子命名空间（Subnamespace）和资源传播的控制器</li>
+</ul>
+</li>
+<li><a href="https://github.com/cybozu-go/pod-security-admission">Pod Security Admission</a>
+<ul>
+<li>应用于 Pod 安全相关策略的<code>Admission WebHook</code>实现</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kubebuilder"><a class="header" href="#kubebuilder">Kubebuilder</a></h1>
+<p><code>kubebuilder</code>命令是一个自动生成自定义控制器项目模板的工具。
+除了源代码之外，它还生成许多文件，例如 Makefile、Dockerfile 和各种清单。</p>
+<p>如下是命令<code>kubebuilder</code>的帮助信息。</p>
+<pre><code class="language-console">❯ kubebuilder -h
+CLI tool for building Kubernetes extensions and tools.
+
+Usage:
+  kubebuilder [flags]
+  kubebuilder [command]
+
+Examples:
+The first step is to initialize your project:
+    kubebuilder init [--plugins=&lt;PLUGIN KEYS&gt; [--project-version=&lt;PROJECT VERSION&gt;]]
+
+&lt;PLUGIN KEYS&gt; is a comma-separated list of plugin keys from the following table
+and &lt;PROJECT VERSION&gt; a supported project version for these plugins.
+
+                             Plugin keys | Supported project versions
+-----------------------------------------+----------------------------
+               base.go.kubebuilder.io/v3 |                          3
+               base.go.kubebuilder.io/v4 |                          3
+        declarative.go.kubebuilder.io/v1 |                       2, 3
+ deploy-image.go.kubebuilder.io/v1-alpha |                          3
+                    go.kubebuilder.io/v2 |                       2, 3
+                    go.kubebuilder.io/v3 |                          3
+                    go.kubebuilder.io/v4 |                          3
+         grafana.kubebuilder.io/v1-alpha |                          3
+      kustomize.common.kubebuilder.io/v1 |                          3
+      kustomize.common.kubebuilder.io/v2 |                          3
+
+For more specific help for the init command of a certain plugins and project version
+configuration please run:
+    kubebuilder init --help --plugins=&lt;PLUGIN KEYS&gt; [--project-version=&lt;PROJECT VERSION&gt;]
+
+Default plugin keys: "go.kubebuilder.io/v4"
+Default project version: "3"
+
+
+Available Commands:
+  alpha       Alpha-stage subcommands
+  completion  Load completions for the specified shell
+  create      Scaffold a Kubernetes API or webhook
+  edit        Update the project configuration
+  help        Help about any command
+  init        Initialize a new project
+  version     Print the kubebuilder version
+
+Flags:
+  -h, --help                     help for kubebuilder
+      --plugins strings          plugin keys to be used for this subcommand execution
+      --project-version string   project version (default "3")
+
+Use "kubebuilder [command] --help" for more information about a command.
+</code></pre>
+<p><code>kubebuilder</code>具有用于创建新项目的<code>init</code>子命令、用于生成新 API 或 Webhook 的<code>create</code>子命令以及用于更改生成项目的设置的<code>edit</code>子命令。</p>
+<p>本文档介绍如何使用<code>init</code>子命令和<code>create</code>子命令。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="创建项目模版"><a class="header" href="#创建项目模版">创建项目模版</a></h1>
+<p>使用<code>kubebuilder init</code>命令来生成项目模版。</p>
+<pre><code class="language-console">$ mkdir markdown-view
+$ cd markdown-view
+$ kubebuilder init --domain zoetrope.github.io --repo github.com/zoetrope/markdown-view
+</code></pre>
+<p><code>--domain</code>中指定的名称用作CRD组的名称。
+请使用您的组织内拥有的域指定唯一且有效的名称</p>
+<p><code>--repo</code>指定go模块的模块名称。
+如果您想在<code>GitHub</code>上创建存储库，请指定 <code>github.com/&lt;user_name&gt;/&lt;product_name&gt;</code>。</p>
+<p>如果命令执行成功，将会生成一个类似于下面的文件。</p>
+<pre><code>├── Dockerfile
+├── Makefile
+├── PROJECT
+├── README.md
+├── cmd
+│    └── main.go
+├── config
+│    ├── default
+│    │    ├── kustomization.yaml
+│    │    ├── manager_auth_proxy_patch.yaml
+│    │    └── manager_config_patch.yaml
+│    ├── manager
+│    │    ├── kustomization.yaml
+│    │    └── manager.yaml
+│    ├── prometheus
+│    │    ├── kustomization.yaml
+│    │    └── monitor.yaml
+│    └── rbac
+│        ├── auth_proxy_client_clusterrole.yaml
+│        ├── auth_proxy_role.yaml
+│        ├── auth_proxy_role_binding.yaml
+│        ├── auth_proxy_service.yaml
+│        ├── kustomization.yaml
+│        ├── leader_election_role.yaml
+│        ├── leader_election_role_binding.yaml
+│        ├── role_binding.yaml
+│        └── service_account.yaml
+├── go.mod
+├── go.sum
+└── hack
+    └── boilerplate.go.txt
+</code></pre>
+<p><code>Kubebuilder</code>生成的<code>go.mod</code>和<code>Makefile</code>可能使用稍旧版本的<code>controller-runtime</code>和<code>controller-gen</code>。
+如有必要，请更新以使用最新版本。</p>
+<p>现在让我们看一下每个生成的文件</p>
+<h2 id="makefile"><a class="header" href="#makefile">Makefile</a></h2>
+<p>这是一个用于生成代码、构建控制器等的<code>Makefile</code>。</p>
+<p><code>make help</code>可以查看命令的使用帮助。</p>
+<pre><code class="language-console">❯ make help
+
+Usage:
+  make &lt;target&gt;
+
+General
+  help             Display this help.
+
+Development
+  manifests        Generate WebhookConfiguration, ClusterRole and CustomResourceDefinition objects.
+  generate         Generate code containing DeepCopy, DeepCopyInto, and DeepCopyObject method implementations.
+  fmt              Run go fmt against code.
+  vet              Run go vet against code.
+  test             Run tests.
+
+Build
+  build            Build manager binary.
+  run              Run a controller from your host.
+  docker-build     Build docker image with the manager.
+  docker-push      Push docker image with the manager.
+  docker-buildx    Build and push docker image for the manager for cross-platform support
+
+Deployment
+  install          Install CRDs into the K8s cluster specified in ~/.kube/config.
+  uninstall        Uninstall CRDs from the K8s cluster specified in ~/.kube/config. Call with ignore-not-found=true to ignore resource not found errors during deletion.
+  deploy           Deploy controller to the K8s cluster specified in ~/.kube/config.
+  undeploy         Undeploy controller from the K8s cluster specified in ~/.kube/config. Call with ignore-not-found=true to ignore resource not found errors during deletion.
+
+Build Dependencies
+  kustomize        Download kustomize locally if necessary. If wrong version is installed, it will be removed before downloading.
+  controller-gen   Download controller-gen locally if necessary. If wrong version is installed, it will be overwritten.
+  envtest          Download envtest-setup locally if necessary.
+</code></pre>
+<h2 id="project"><a class="header" href="#project">PROJECT</a></h2>
+<p>描述了域名、存储库 URL 以及有关生成的 API 的信息。
+基本上，可能不会经常编辑此文件。</p>
+<h2 id="hackboilerplategotxt"><a class="header" href="#hackboilerplategotxt">hack/boilerplate.go.txt</a></h2>
+<p>这是插入在自动生成的源代码开头的样板。</p>
+<p>默认情况下，已写入<code>Apache 2</code>许可证的文本，因此请根据需要重写它。</p>
+<h2 id="cmdmaingo"><a class="header" href="#cmdmaingo">cmd/main.go</a></h2>
+<p>这是源代码，它将成为我们将创建的自定义控制器的入口.</p>
+<p>源码中写有<code>//+kubebuilder:scaffold:imports</code>、<code>//+kubebuilder:scaffold:scheme</code>、<code>//+kubebuilder:scaffold:builder</code>等注释。
+<code>Kubebuilder</code>使用这些注释作为指导自动生成源代码，因此请注意不要删除它们。</p>
+<h2 id="config"><a class="header" href="#config">config</a></h2>
+<p>在<code>config</code>目录下生成用于将自定义控制器部署到<code>Kubernetes</code>集群的清单。</p>
+<p>根据要实现的功能，某些清单可能不是必需的，因此请相应地选择。</p>
+<h3 id="default"><a class="header" href="#default">default</a></h3>
+<p>包含一次性使用清单的设置。</p>
+<p><code>manager_auth_proxy_patch.yaml</code> 是使用<a href="https://github.com/brancz/kube-rbac-proxy">kube-auth-proxy</a> 所需的补丁。
+如果不使用kube-auth-proxy，删除也没有问题</p>
+<p><code>manager_config_patch.yaml</code> 是一个补丁文件，用于使用 ConfigMap 而不是参数指定自定义控制器选项。</p>
+<p>根据您使用的清单编辑<code>kustomization.yaml</code></p>
+<h3 id="manager"><a class="header" href="#manager">manager</a></h3>
+<p>这是自定义控制器的部署资源的清单。
+请根据需要重写，例如更改自定义控制器的命令行选项时。</p>
+<h3 id="prometheus"><a class="header" href="#prometheus">prometheus</a></h3>
+<p>Prometheus Operator的自定义资源清单。
+如果您使用 Prometheus Operator，应用此清单将使 Prometheus 能够自动收集自定义控制器的指标。</p>
+<h3 id="rbac"><a class="header" href="#rbac">rbac</a></h3>
+<p>这是用于设置各种权限的清单。</p>
+<p>以 auth_proxy_ 开头的四个文件是 <a href="https://github.com/brancz/kube-rbac-proxy">kube-auth-proxy</a> 的清单。
+使用 kube-auth-proxy，您可以通过 RBAC 限制对指标端点的访问。</p>
+<p><code>leader_election_role.yaml</code> 和 <code>leader_election_role_binding.yaml</code> 是使用领导者选举功能所需的权限。</p>
+<p><code>role.yaml</code> 和 <code>role_binding.yaml</code> 是为控制器设置访问各种资源的权限的清单.</p>
+<p>这两个文件基本上是自动生成的，不需要开发者编辑。</p>
+<p>如果删除不需要的文件，请同时编辑<code>kustomization.yaml</code></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="api模版创建"><a class="header" href="#api模版创建">API模版创建</a></h1>
+<p><code>kubebuilder create api</code>可以使用这个命令实现自定义资源和自定义控制器的模版。</p>
+<p>执行如下命令可以生成<code>MarkdownView</code>的自定义资源以及处理<code>MarkdownView</code>的自定义控制器。</p>
+<p>过程中会询问您是否要生成自定义资源和控制器的源代码。这次，请两者都回答“y”。</p>
+<pre><code class="language-console">$ kubebuilder create api --group view --version v1 --kind MarkdownView
+Create Resource [y/n]
+y
+Create Controller [y/n]
+y
+$ make manifests
+</code></pre>
+<p><code>--group</code>,<code>--version</code>, <code>--kind</code>选项指定要生成的自定义资源的组(Group)、版本(Version)和类型(Kind)</p>
+<ul>
+<li><code>--kind</code>: 指定要创建的资源的名称。</li>
+<li><code>--group</code>: 指定资源所属的组名。</li>
+<li><code>--version</code>: 指定适当的版本。如果未来规范可能会更改，请指定 <code>v1alpha1</code> 或 <code>v1beta1</code>。如果要创建稳定版本的资源，请指定 <code>v1</code>。</li>
+</ul>
+<p>成功执行命令后，将生成类似以下的新文件：</p>
+<pre><code>├── api
+│    └── v1
+│        ├── groupversion_info.go
+│        ├── markdownview_types.go
+│        └── zz_generated.deepcopy.go
+├── config
+│    ├── crd
+│    │    ├── bases
+│    │    │    └── view.zoetrope.github.io_markdownviews.yaml
+│    │    ├── kustomization.yaml
+│    │    ├── kustomizeconfig.yaml
+│    │    └── patches
+│    │        ├── cainjection_in_markdownviews.yaml
+│    │        └── webhook_in_markdownviews.yaml
+│    ├── rbac
+│    │    └── role.yaml
+│    └── samples
+│        ├── kustomization.yaml
+│        └── view_v1_markdownview.yaml
+└── internal
+    └── controller
+        ├── markdownview_controller.go
+        └── suite_test.go
+</code></pre>
+<p>来看下每个文件的内容。</p>
+<h2 id="apiv1"><a class="header" href="#apiv1">api/v1</a></h2>
+<p><code>markdownview_types.go</code>这是<code>MarkdownView</code>资源在Go语言中的结构表示。
+在以后的开发过程中，如果需要修改<code>MarkdownView</code>资源的定义，将会编辑这个文件。</p>
+<p><code>groupversion_info.go</code>初次生成之后无需编辑此文件。
+<code>zz_generated.deepcopy.go</code>是根据<code>markdownview_types.go</code>的内容自动生成的，因此无需编辑它。</p>
+<h2 id="internalcontrollers"><a class="header" href="#internalcontrollers">internal/controllers</a></h2>
+<p><code>markdownview_controller.go</code>这个文件包含了自定义控制器的主要逻辑。
+以后，在自定义控制器的处理逻辑将主要在这个文件进行开发。</p>
+<p><code>suite_test.go</code>这是测试代码。详细内容请参考<a href="kubebuilder/../controller-runtime/controller_test.html">Controller测试</a></p>
+<h2 id="cmdmaingo-1"><a class="header" href="#cmdmaingo-1">cmd/main.go</a></h2>
+<p><code>cmd/main.go</code>中，添加了如下的控制器的初始化逻辑：</p>
+<p><a href="kubebuilder/../../codes/00_scaffold/cmd/main.go">import:“init-reconciler”,unindent=“true”</a></p>
+<h2 id="config-1"><a class="header" href="#config-1">config</a></h2>
+<p>config目录下添加了几个文件。</p>
+<h3 id="crd"><a class="header" href="#crd">crd</a></h3>
+<p>CRD（Custom Resource Definition，自定义资源定义）的清单文件已添加到 crd 目录中。</p>
+<p>这些清单是从 <code>api/v1/markdownView_types.go</code> 自动生成的，因此通常不需要手动编辑它们。
+然而，如果您希望使用<code>Conversion Webhook</code>，请修改<code>kustomization.yaml</code>，使用<code>cainjection_in_markdownViews.yaml</code>和<code>webhook_in_markdownViews.yaml</code>中的补丁。</p>
+<h3 id="rbac-1"><a class="header" href="#rbac-1">rbac</a></h3>
+<p><code>role.yaml</code>文件中，添加了处理<code>MarkdownView</code>资源所需的权限设置。</p>
+<h3 id="samples"><a class="header" href="#samples">samples</a></h3>
+<p>这是一个自定义资源的示例清单。
+可以将其用于测试的目的，或者提供给用户使用。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="webhook生成"><a class="header" href="#webhook生成">Webhook生成</a></h1>
+<p>Kubernetes 有一个名为<code>Admission Webhook</code> 的扩展。
+该函数在创建或更新特定资源时调用<code>Webhook API</code>，并对资源进行验证或重写。</p>
+<p>使用<code>kubebuilder</code>命令，您可以使用以下三个选项指定要生成的 Webhook。</p>
+<ul>
+<li><code>--programmatic-validation</code>：用于资源验证的 Webhook</li>
+<li><code>--defaulting</code>：用于设置资源字段默认值的Webhook。</li>
+<li><code>--conversion</code>：用于在升级自定义资源时转换资源的 Webhook</li>
+</ul>
+<p>在这里，我们指定 <code>--programmatic-validation</code> 和 <code>--defaulting</code> 来为 MarkdownView 资源生成 webhook。</p>
+<p>注意: Kind 不能是现有资源，例如 Pod 或 Deployment。</p>
+<pre><code class="language-console">$ kubebuilder create webhook --group view --version v1 --kind MarkdownView --programmatic-validation --defaulting
+$ make manifests
+</code></pre>
+<p>运行上面命令之后，新添加了以下文件。</p>
+<pre><code>├── api
+│    └── v1
+│        ├── markdownview_webhook.go
+│        └── webhook_suite_test.go
+└── config
+     ├── certmanager
+     │    ├── certificate.yaml
+     │    ├── kustomization.yaml
+     │    └── kustomizeconfig.yaml
+     ├── default
+     │    ├── manager_webhook_patch.yaml
+     │    └── webhookcainjection_patch.yaml
+     └── webhook
+         ├── kustomization.yaml
+         ├── kustomizeconfig.yaml
+         ├── manifests.yaml
+         └── service.yaml
+</code></pre>
+<h2 id="apiv1-1"><a class="header" href="#apiv1-1">api/v1</a></h2>
+<p><code>markdownview_webhook.go</code> 是 webhook 实现的模板。
+我们将把 webhook 实现添加到该文件中</p>
+<h2 id="configcertmanager"><a class="header" href="#configcertmanager">config/certmanager</a></h2>
+<p>使用Admission Webhook功能需要证书。
+已生成使用 <a href="https://github.com/jetstack/cert-manager">cert-manager</a> 颁发证书的自定义资源。</p>
+<h2 id="configwebhook"><a class="header" href="#configwebhook">config/webhook</a></h2>
+<p><code>config/webhook</code>是使用webhook功能所需的manifest文件。
+Manifests.yaml文件是通过<code>make manifests</code>文件自动生成的，所以基本上不需要手动编辑。</p>
+<h2 id="cmdmaingo-2"><a class="header" href="#cmdmaingo-2">cmd/main.go</a></h2>
+<p><code>cmd/main.go</code> 添加了代码来初始化 webhook，如下所示。</p>
+<p><a href="kubebuilder/../../codes/00_scaffold/cmd/main.go">import:“init-webhook”,unindent=“true”</a></p>
+<h2 id="kustomizationyaml编辑"><a class="header" href="#kustomizationyaml编辑">kustomization.yaml编辑</a></h2>
+<p>使用 Kubebuilder 命令生成清单后，即使使用 make manifests 命令生成清单，Webhook 功能也将不可用。</p>
+<p><code>config/default/kustomization.yaml</code>需要编辑这个文件。</p>
+<p>生成<code>kustomization.yaml</code>在<code>resources</code>中包含<code>../webhook</code>和<code>../certmanager</code>，<code>manager_webhook_patch.yaml</code>、<code>webhookcainjection_patch.yaml</code>和<code>patchesStrategicMerge</code>中的<code>replacements</code>被注释掉。取消注释这些。</p>
+<p><a href="kubebuilder/../../codes/00_scaffold/config/default/kustomization.yaml">import:“resources,enable-webhook,patches,enable-webhook-patch,replacements”</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="检查自定义控制器的操作"><a class="header" href="#检查自定义控制器的操作">检查自定义控制器的操作</a></h1>
+<p>通过Kubebuilder构建生成的项目，并在<a href="https://kind.sigs.k8s.io/docs/user/quick-start/">Kind</a>环境中运行它。</p>
+<p>Kind 是一种用于在本地环境构建 Kubernetes 集群的工具，可以轻松进行控制器的测试和操作确认。</p>
+<h2 id="kind启动集群"><a class="header" href="#kind启动集群">kind启动集群</a></h2>
+<p>首先，使用<code>kind</code>命令创建kubernetes集群。</p>
+<pre><code class="language-console">$ kind create cluster
+</code></pre>
+<h2 id="安装cert-manager"><a class="header" href="#安装cert-manager">安装cert-manager</a></h2>
+<p>为了给<code>Webhook</code>颁发证书，需要使用<code>cert-manager</code>。执行以下命令部署<code>cert-manager</code>（<a href="https://cert-manager.io/docs/installation/kubernetes/">参考</a>）：</p>
+<pre><code class="language-console">$ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
+</code></pre>
+<p>通过如下命令来确认<code>cert-manager</code>的pod是否已经启动。</p>
+<pre><code class="language-console">$ kubectl get pod -n cert-manager
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-7dd5854bb4-whlcn              1/1     Running   0          26s
+cert-manager-cainjector-64c949654c-64wjk   1/1     Running   0          26s
+cert-manager-webhook-6bdffc7c9d-hkr8h      1/1     Running   0          26s
+</code></pre>
+<h2 id="准备控制器的容器镜像"><a class="header" href="#准备控制器的容器镜像">准备控制器的容器镜像</a></h2>
+<p>构建容器镜像的命令。</p>
+<pre><code class="language-console">$ make docker-build
+</code></pre>
+<p>要使用此容器镜像，您需要将构建的容器镜像推送到<code>DockerHub</code>等容器注册表，或者将其加载到您的<code>kind</code>环境中。</p>
+<p>以下是将容器镜像加载到<code>kind</code>环境中的命令：</p>
+<pre><code class="language-console">$ kind load docker-image controller:latest
+</code></pre>
+<p>此外，如果将<code>latest</code>指定为容器镜像的标签，那么<code>ImagePullPolicy</code>将默认为<code>Always</code>，这可能会导致加载的容器镜像未被使用，即使它已经存在。
+(<a href="https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster">参考</a>)</p>
+<p>因此，请在 <code>config/manager/manager.yaml</code> 文件中添加 <code>imagePullPolicy: IfNotPresent</code>。</p>
+<p><a href="kubebuilder/../../codes/10_tilt/config/manager/manager.yaml">import:“containers”</a></p>
+<h2 id="验证控制器操作"><a class="header" href="#验证控制器操作">验证控制器操作</a></h2>
+<p>将自定义资源定义(CRD)应用到kubernetes集群中。</p>
+<pre><code class="language-console">$ make install
+</code></pre>
+<p>接下来，将应用各种清单文件。</p>
+<pre><code class="language-console">$ make deploy
+</code></pre>
+<p>确认控制器的pod知否已经处于运行状态。</p>
+<pre><code class="language-console">$ kubectl get pod -n markdown-view-system
+NAME                                                READY   STATUS    RESTARTS   AGE
+markdown-view-controller-manager-5bc678bbf9-vb9r5   2/2     Running   0          30s
+</code></pre>
+<p>接下来，查看控制器的日志</p>
+<pre><code class="language-console">$ kubectl logs -n markdown-view-system markdown-view-controller-manager-5bc678bbf9-vb9r5 -c manager -f
+</code></pre>
+<p>现在，将应用示例的自定义资源。</p>
+<pre><code class="language-console">$ kubectl apply -f config/samples/view_v1_markdownview.yaml
+</code></pre>
+<p>如果在控制器中看到类似<code>Webhook</code>或<code>Reconcile</code>的消息，则表示操作成功。</p>
+<pre><code class="language-console">2021-07-10T09:29:49.311Z        INFO    controller-runtime.metrics      metrics server is starting to listen     {"addr": "127.0.0.1:8080"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.builder      Registering a mutating webhook   {"GVK": "view.zoetrope.github.io/v1, Kind=MarkdownView", "path": "/mutate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.webhook      registering webhook      {"path": "/mutate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.builder      Registering a validating webhook {"GVK": "view.zoetrope.github.io/v1, Kind=MarkdownView", "path": "/validate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    controller-runtime.webhook      registering webhook      {"path": "/validate-view-zoetrope-github-io-v1-markdownview"}
+2021-07-10T09:29:49.311Z        INFO    setup   starting manager
+I0710 09:29:49.312373       1 leaderelection.go:243] attempting to acquire leader lease markdown-view-system/c124e721.zoetrope.github.io...
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.manager      starting metrics server  {"path": "/metrics"}
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.webhook.webhooks     starting webhook server
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.certwatcher  Updated current TLS certificate
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.webhook      serving webhook server   {"host": "", "port": 9443}
+2021-07-10T09:29:49.312Z        INFO    controller-runtime.certwatcher  Starting certificate watcher
+I0710 09:29:49.409787       1 leaderelection.go:253] successfully acquired lease markdown-view-system/c124e721.zoetrope.github.io
+2021-07-10T09:29:49.409Z        DEBUG   controller-runtime.manager.events       Normal  {"object": {"kind":"ConfigMap","namespace":"markdown-view-system","name":"c124e721.zoetrope.github.io","uid":"b48865ea-3d05-47bd-be4f-4d03a14b7a36","apiVersion":"v1","resourceVersion":"1982"}, "reason": "LeaderElection", "message": "markdown-view-controller-manager-5bc678bbf9-vb9r5_d64b0043-4a95-432e-9c76-3001247a87ac became leader"}
+2021-07-10T09:29:49.409Z        DEBUG   controller-runtime.manager.events       Normal  {"object": {"kind":"Lease","namespace":"markdown-view-system","name":"c124e721.zoetrope.github.io","uid":"3ef3dcde-abbb-440b-9052-1c85ed01d67d","apiVersion":"coordination.k8s.io/v1","resourceVersion":"1983"}, "reason": "LeaderElection", "message": "markdown-view-controller-manager-5bc678bbf9-vb9r5_d64b0043-4a95-432e-9c76-3001247a87ac became leader"}
+2021-07-10T09:29:49.410Z        INFO    controller-runtime.manager.controller.markdownview       Starting EventSource    {"reconciler group": "view.zoetrope.github.io", "reconciler kind": "MarkdownView", "source": "kind source: /, Kind="}
+2021-07-10T09:29:49.410Z        INFO    controller-runtime.manager.controller.markdownview       Starting Controller     {"reconciler group": "view.zoetrope.github.io", "reconciler kind": "MarkdownView"}
+2021-07-10T09:29:49.511Z        INFO    controller-runtime.manager.controller.markdownview       Starting workers        {"reconciler group": "view.zoetrope.github.io", "reconciler kind": "MarkdownView", "worker count": 1}
+2021-07-10T09:33:53.622Z        DEBUG   controller-runtime.webhook.webhooks     received request {"webhook": "/mutate-view-zoetrope-github-io-v1-markdownview", "UID": "20fe30b5-6d45-4592-ae4b-ee5048e054d1", "kind": "view.zoetrope.github.io/v1, Kind=MarkdownView", "resource": {"group":"view.zoetrope.github.io","version":"v1","resource":"markdownviews"}}
+2021-07-10T09:33:53.623Z        INFO    markdownview-resource   default {"name": "markdownview-sample"}
+2021-07-10T09:33:53.623Z        DEBUG   controller-runtime.webhook.webhooks     wrote response   {"webhook": "/mutate-view-zoetrope-github-io-v1-markdownview", "code": 200, "reason": "", "UID": "20fe30b5-6d45-4592-ae4b-ee5048e054d1", "allowed": true}
+2021-07-10T09:33:53.626Z        DEBUG   controller-runtime.webhook.webhooks     received request {"webhook": "/validate-view-zoetrope-github-io-v1-markdownview", "UID": "904fc35e-4415-4a90-af96-52cbe1cef1b7", "kind": "view.zoetrope.github.io/v1, Kind=MarkdownView", "resource": {"group":"view.zoetrope.github.io","version":"v1","resource":"markdownviews"}}
+2021-07-10T09:33:53.626Z        INFO    markdownview-resource   validate create {"name": "markdownview-sample"}
+2021-07-10T09:33:53.626Z        DEBUG   controller-runtime.webhook.webhooks     wrote response   {"webhook": "/validate-view-zoetrope-github-io-v1-markdownview", "code": 200, "reason": "", "UID": "904fc35e-4415-4a90-af96-52cbe1cef1b7", "allowed": true}
+</code></pre>
+<h2 id="高效开发流程"><a class="header" href="#高效开发流程">高效开发流程</a></h2>
+<p>在开发过程中，您需要重写自定义控制器实现并多次检查其操作。
+您可以按照以下步骤高效地进行开发</p>
+<ul>
+<li>如果控制器实现发生更改，请使用以下命令构建容器映像并将其重新加载到<code>kind</code>环境中。</li>
+</ul>
+<pre><code>$ make docker-build
+$ kind load docker-image controller:latest
+</code></pre>
+<ul>
+<li>如果<code>CRD</code>有任何更改，请运行以下命令。但是，如果您进行不兼容的更改，此命令将会失败，因此请先运行<code>make uninstall</code>。</li>
+</ul>
+<pre><code>$ make install
+</code></pre>
+<ul>
+<li>如果除CRD之外的清单文件有更改，请执行以下命令。但是，如果您进行不兼容的更改，此命令将会失败，因此请提前运行<code>make undeploy</code></li>
+<li></li>
+</ul>
+<pre><code>$ make deploy
+</code></pre>
+<ul>
+<li>可以通过如下命令进行重新启动自定义控制器</li>
+</ul>
+<pre><code>$ kubectl rollout restart -n markdown-view-system deployment markdown-view-controller-manager
+</code></pre>
+<h2 id="利用tilt进行高效开发"><a class="header" href="#利用tilt进行高效开发">利用Tilt进行高效开发</a></h2>
+<p>如上所述，在开发自定义控制器时，每次更改源代码或者清单时都需要多次执行多个make命令，非常麻烦</p>
+<p><a href="https://tilt.dev">Tilt</a>允许监视源代码和清单的更改，它将自动重建容器镜像、将清单应用到Kubernetes集群、重新启动pod等。</p>
+<p>如果有兴趣可以查看如下文章。</p>
+<ul>
+<li><a href="https://zenn.dev/zoetro/articles/fba4c77a7fa3fb">使用Tilt简化自定义控制器开发</a></li>
+</ul>
+<p>本书中的示例程序是为了可以使用Tilt而设置的。
+详情请参阅下面的代码。</p>
+<ul>
+<li>https://github.com/zoetrope/kubebuilder-training/tree/main/codes/10_tilt</li>
+</ul>
+<p>首先，参考以下页面安装<a href="https://aquaproj.github.io">aqua</a>。</p>
+<ul>
+<li>https://aquaproj.github.io/docs/reference/install</li>
+</ul>
+<p>接下来，使用aqua安装各种工具。</p>
+<pre><code class="language-console">$ aqua i
+</code></pre>
+<p>接下来，运行以下命令启动<code>Kubernetes</code>集群和容器注册表，并部署<code>cert-manager</code>。</p>
+<pre><code class="language-console">$ make start
+</code></pre>
+<p>最后，启动tilt并在浏览器中访问http://localhost:10350</p>
+<pre><code class="language-console">$ tilt up
+</code></pre>
+<p>如果一切正常，该类型的资源应该会自动更新，以响应源代码或清单中的更改。</p>
+<p>完成后，执行以下命令。</p>
+<pre><code class="language-console">$ make stop
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="controller-tools"><a class="header" href="#controller-tools">controller-tools</a></h1>
+<p>Kubebuilder 提供了 <a href="https://github.com/kubernetes-sigs/controller-tools">controller-tools</a> 作为一组工具来协助开发自定义控制器。</p>
+<p>controller-tools 包括以下工具，但本文档仅涉及controller-gen。</p>
+<ul>
+<li>controller-gen</li>
+<li>type-scaffold</li>
+<li>helpgen</li>
+</ul>
+<h2 id="controller-gen"><a class="header" href="#controller-gen">controller-gen</a></h2>
+<p><code>controller-gen</code> 是一个基于 Go 源码生成清单和 Go 源码的工具。
+如果您检查<code>controller-gen</code>帮助，您将看到以下五种类型的生成器的存在。</p>
+<pre><code>❯ controller-gen -h
+
+(中略)
+
+generators
+
++webhook                                                                                                  package  generates (partial) {Mutating,Validating}WebhookConfiguration objects.
++schemapatch:manifests=&lt;string&gt;[,maxDescLen=&lt;int&gt;]                                                        package  patches existing CRDs with new schemata.
++rbac:roleName=&lt;string&gt;                                                                                   package  generates ClusterRole objects.
++object[:headerFile=&lt;string&gt;][,year=&lt;string&gt;]                                                             package  generates code containing DeepCopy, DeepCopyInto, and DeepCopyObject method implementations.
++crd[:crdVersions=&lt;[]string&gt;][,maxDescLen=&lt;int&gt;][,preserveUnknownFields=&lt;bool&gt;][,trivialVersions=&lt;bool&gt;]  package  generates CustomResourceDefinition objects.
+</code></pre>
+<p><code>kubebuilder</code> 生成的 Makefile 有目标 <code>make manifests</code> 和 <code>make generate</code>，<code>make manifests</code> 生成 <code>webhook</code>、<code>rbac</code>、<code>crd</code> 和 <code>make generate</code>生成 <code>object</code></p>
+<p>当<code>controller-gen</code>生成清单时，它使用Go的结构和注释（称为标记）的结构，以嵌入源代码中的<code>// +kubebuilder:</code>开头作为地标。</p>
+<p>您可以使用以下命令检查可用的标记。（您可以通过指定<code>-ww</code>或<code>-www</code>看到更详细的解释）</p>
+<pre><code class="language-console">$ controller-gen crd -w
+$ controller-gen webhook -w
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="生成-rbac-清单"><a class="header" href="#生成-rbac-清单">生成 RBAC 清单</a></h1>
+<p>在Kubernetes中，RBAC（基于角色的访问控制）可以控制资源访问。
+自定义控制器还需要设置适当的权限，以便它们只能访问它们使用的资源。</p>
+<p>controller-gen 可以根据 Go 源代码中嵌入的标记生成 RBAC 清单。</p>
+<p>首先，我们看一下 Kubebuilder 生成的标记。</p>
+<p><a href="controller-tools/../../codes/00_scaffold/internal/controller/markdownview_controller.go">import:“rbac”</a></p>
+<ul>
+<li><code>groups</code>: 指定您想要授予权限的资源的 API 组。</li>
+<li><code>resources</code>: 指定您要授予权限的资源类型。</li>
+<li><code>verb</code>: 指定授予何种权限。根据控制器执行的操作指定权限。</li>
+</ul>
+<p>权限被授予 MarkdownView 资源及其子资源<code>status</code>和<code>finalizer</code>。
+请注意，子资源不能用于列表、创建或删除操作，因此仅授予<code>get;update;patch</code>权限。</p>
+<p>除此之外，我们还可以添加权限标记来操作 MarkdownView 控制器创建的 ConfigMap、Deployment、Service 和 Event 资源。</p>
+<p><a href="controller-tools/../../codes/20_manifests/internal/controller/markdownview_controller.go">import:“rbac”</a></p>
+<p>请注意，即使使用 Get 获取资源，控制器运行时提供的 Client 也会在幕后调用 List 和 Watch。
+因此，即使您只想获取，也要确保允许获取、列出和观看。</p>
+<p>当您运行<code>make manifests</code>时，<code>config/rbac/role.yaml</code>将更新，如下所示</p>
+<p><a href="controller-tools/../../codes/20_manifests/config/rbac/role.yaml">import</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="webhookマニフェストの生成"><a class="header" href="#webhookマニフェストの生成">Webhookマニフェストの生成</a></h1>
+<p>为了使用Admission Webhook，您需要准备<code>MutatingWebhookConfiguration</code>和<code>ValidatingWebhookConfiguration等清单。 controller-gen 可以根据 </code>// +kubebuilder:webhook` 标记描述生成清单。</p>
+<p>首先，让我们看一下设置默认值的 webhook 标记</p>
+<p><a href="controller-tools/../../codes/20_manifests/api/v1/markdownview_webhook.go">import:“webhook-defaulter”</a></p>
+<p>还要检查验证 Webhook 标记。</p>
+<p><a href="controller-tools/../../codes/20_manifests/api/v1/markdownview_webhook.go">import:“webhook-validator”</a></p>
+<ul>
+<li><code>path</code>：指定 webhook 的路径。该路径是由controller-runtime自动生成的，所以基本上不用更改就可以使用它。</li>
+<li><code>mutating</code>：指定是否使用 webhook 重写值。为默认者指定“true”，为验证者指定“false”。</li>
+<li><code>failurePolicy</code>：指定 Webhook API 调用失败时的行为。如果指定<code>fail</code>，则在无法调用 Webhook 的情况下无法创建资源。如果指定<code>ignore</code>，即使无法调用 Webhook，也会创建资源。</li>
+<li><code>sideEffects</code>：指定 Webhook API 调用是否有副作用。这会影响在试运行模式下调用 API 服务器时的行为。如果没有副作用，则指定“None”；如果有副作用，则指定<code>Some</code>。</li>
+<li><code>groups</code>、<code>versions</code>、<code>resource</code>：指定 Webhook 所针对的资源的 GVK。</li>
+<li><code>verbs</code>：您可以指定 webhook 所针对的资源的操作。您可以指定“创建”、“更新”、“删除”等</li>
+<li><code>name</code>：指定 webhook 的名称。必须是由点分隔的三个或更多段的域名</li>
+<li><code>admissionReviewVersions</code>：指定 webhook 支持的 AdmissionReview 版本。如果只想在 Kubernetes 1.16 或更高版本的环境中运行，则仅使用 <code>v1</code> 是没有问题的。如果您想在 1.15 之前的环境中运行，还需指定 <code>v1beta1</code>。</li>
+</ul>
+<p>运行<code>make manifests</code>将根据标记的内容生成如下所示的清单文件。</p>
+<p><a href="controller-tools/../../codes/20_manifests/config/webhook/manifests.yaml">import</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="controller-runtime"><a class="header" href="#controller-runtime">controller-runtime</a></h1>
+<p>要开发自定义控制器，请使用 <a href="https://github.com/kubernetes/client-go">client-go</a>、<a href="https://github.com/kubernetes/apimachinery">apimachinery</a>、[api](https://github.com/kubernetes/api）。</p>
+<p><a href="https://github.com/kubernetes-sigs/controller-runtime">controller-runtime</a> 是一个抽象和隐藏这些包的库，可以更轻松地实现自定义控制器。</p>
+<p>虽然它是抽象和隐藏的，但它的实现方式却符合 Kubernetes 理念。
+如果需要，您可以通过指定选项来使用<code>client-go</code>和<code>apimachinery</code>提供的大部分功能。</p>
+<p>如果您想了解controller-runtime的设计理念，请参考【KubeBuilder设计原理】(https://github.com/kubernetes-sigs/kubebuilder/blob/master/DESIGN.md#controller-runtime)。</p>
+<p>controller-runtime控制运行时提供的主要组件包括：</p>
+<ul>
+<li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#Manager">manager.Manager</a>
+<ul>
+<li>用于同时管理多个控制器的组件。</li>
+<li>提供实现自定义控制器所需的许多功能，例如领导者选举和指标服务器功能。</li>
+</ul>
+</li>
+<li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/client?tab=doc#Client">client.Client</a>
+<ul>
+<li>用于与 Kubernetes 中的 kube-apiserver 交互的客户端。</li>
+<li>它具有在内存中缓存受监控资源的功能，并且是一个可以安全处理自定义资源类型的客户端。</li>
+</ul>
+</li>
+<li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile?tab=doc#Reconciler">reconcile.Reconciler</a>
+<ul>
+<li>自定义控制器应实现的接口。</li>
+</ul>
+</li>
+</ul>
+<p>以下几页将详细解释这些功能。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reconcile"><a class="header" href="#reconcile">Reconcile</a></h1>
+<p>Reconcile是自定义控制器的核心逻辑。它会比较用户创建的自定义资源的期望状态和实际系统状态，如果存在差异，就会执行必要的处理来填补这些差异。</p>
+<h2 id="reconciler调协机制"><a class="header" href="#reconciler调协机制">Reconciler调协机制</a></h2>
+<h3 id="reconciler接口"><a class="header" href="#reconciler接口">Reconciler接口</a></h3>
+<p>Reconcile实现是通过实现controller-runtime的<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile?tab=doc#Reconciler">reconcile.Reconciler</a>接口来实现的。</p>
+<pre><code class="language-go">type Reconciler interface {
+	Reconcile(context.Context, Request) (Result, error)
+}
+</code></pre>
+<p><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile?tab=doc#Request">reconcile.Request</a>参数中包含了此<code>Reconciler</code>所针对的自定义资源的<code>Namespace</code>和<code>Name</code>。</p>
+<p><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile?tab=doc#Result">reconcile.Result</a> 的返回值中有两个字段，即 <code>Requeue</code> 和 <code>RequeueAfter</code>。
+如果将<code>Requeue</code>设置为<code>True</code>并返回该结果，那么<code>Reconcile</code>过程将被放入队列中再次执行。
+如果指定了<code>RequeueAfter</code>，则在指定的时间后重新执行<code>Reconcile</code>过程。</p>
+<p>此外，如果<code>Reconcile</code>返回错误，<code>Reconcile</code>过程也将被放入队列中再次执行，但每次失败后等待的时间会按指数增加。</p>
+<p>由于 <code>Reconcile</code>管理多个资源，不应该花费太多时间来处理单个资源。
+如果存在任何等待情况，应该立即退出<code>Reconcile</code>，并指定 <code>Requeue</code> 或 <code>RequeueAfter</code>。</p>
+<h3 id="reconcile执行时间"><a class="header" href="#reconcile执行时间">Reconcile执行时间</a></h3>
+<p>Reconcile处理在以下时间点被调用：</p>
+<ul>
+<li>当控制器处理的资源被创建、更新或删除时</li>
+<li>当Reconcile失败并且请求再次排队时</li>
+<li>当控制器启动时</li>
+<li>当外部事件发生时</li>
+<li>当缓存重新同步时（默认为每10个小时一次）</li>
+</ul>
+<p>由于Reconcile会在各个时机被调用，因此Reconcile处理必须是幂等的（即在多次使用相同请求调用时产生相同结果）。</p>
+<p>默认情况下，Reconcile处理被限制为每秒不超过10次执行。</p>
+<p>此外，如果这些事件以高频率发生，则可以配置Reconciliation Loop以并行运行。</p>
+<h3 id="控制受监视对象"><a class="header" href="#控制受监视对象">控制受监视对象</a></h3>
+<p>上面已提到当控制器处理的资源被创建、更新或删除时，将调用Reconcile处理。
+为指定以及过滤“控制器处理的资源”，可使用<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/builder#ControllerManagedBy">NewControllerManagedBy</a>函数。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller.go">import:“managedby”,unindent:“true”</a></p>
+<h4 id="for"><a class="header" href="#for">For</a></h4>
+<p><code>For</code>函数指定此控制器Reconcile的目标资源类型。</p>
+<p>在这种情况下，我们指定MarkdownView自定义资源。
+这意味着当创建、修改或删除MarkdownView资源时，将调用Reconcile函数。
+传递给Reconcile函数的请求将包含有关MarkdownView的信息。</p>
+<p>值得注意的是，<code>For</code>中只能指定一种资源类型。</p>
+<h4 id="owns"><a class="header" href="#owns">Owns</a></h4>
+<p><code>Owns</code>函数指定此控制器创建的资源类型。与<code>For</code>不同，<code>Owns</code>允许多个指定。</p>
+<p>由于MarkdownView控制器创建ConfigMap、Deployment和Service资源，因此我们在<code>Owns</code>中指定了这些资源。</p>
+<p>通过这种设置，当由MarkdownView控制器创建的资源（ConfigMap、Deployment、Service）发生更改时，将调用Reconcile函数。但是，控制器创建的资源的<code>ownerReferences</code>必须将MarkdownView资源指定为所有者。有关如何设置<code>ownerReferences</code>的更多详细信息，请参阅<a href="controller-runtime/./deletion.html">资源删除</a>。</p>
+<p>当Reconcile由<code>Owns</code>中指定的资源更改触发时，Request中将不包含<code>Owns</code>中指定资源的名称。而是将包含拥有这些资源的MarkdownView资源的名称。</p>
+<h2 id="reconcile的实现"><a class="header" href="#reconcile的实现">Reconcile的实现</a></h2>
+<p>现在，让我们实现Reconcile函数的核心部分。</p>
+<h3 id="reconcile处理流程"><a class="header" href="#reconcile处理流程">Reconcile处理流程</a></h3>
+<p>让我们概述Reconcile处理的一般流程。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller.go">import:“reconcile”,unindent:“true”</a></p>
+<p>Reconcile函数利用作为参数传递的Request来检索Reconcile处理的MarkdownView资源。</p>
+<p>如果MarkdownView资源不存在，则表示MarkdownView资源已被删除。应执行清理操作，如删除指标，并退出函数。</p>
+<p>接下来，函数检查<code>DeletionTimestamp</code>。如果不为零，则表示已开始目标资源的删除。在这种情况下，应立即退出函数。</p>
+<p>随后，<code>reconcileConfigMap</code>、<code>reconcileDeployment</code>和<code>reconcileService</code>函数分别处理ConfigMap、Deployment和Service资源的创建和更新。</p>
+<p>最后，调用<code>updateStatus</code>来更新MarkdownView资源的状态。</p>
+<pre><code class="language-go">func (r *MarkdownViewController) Reconcile(req reconcile.Request) (reconcile.Result, error) {
+    // 检索MarkdownView资源
+    // 处理资源删除
+    // 处理资源删除时间戳
+    // 调解ConfigMap、Deployment、Service
+    // 更新状态
+}
+</code></pre>
+<h3 id="reconcileconfigmap"><a class="header" href="#reconcileconfigmap">reconcileConfigMap</a></h3>
+<p>在<code>reconcileConfigMap</code>中，根据MarkdownView资源中指定的Markdown内容创建ConfigMap资源。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller.go">import:“reconcile-configmap”</a></p>
+<pre><code class="language-go">func (r *MarkdownViewController) reconcileConfigMap(markdownView *v1alpha1.MarkdownView) error {
+    // 在这里创建ConfigMap资源
+}
+</code></pre>
+<h3 id="reconciledeployment-reconcileservice"><a class="header" href="#reconciledeployment-reconcileservice">reconcileDeployment, reconcileService</a></h3>
+<p>在<code>reconcileDeployment</code>、<code>reconcileService</code>中，分别创建Deployment和Service资源。</p>
+<p>虽然类似于<code>reconcileConfigMap</code>，也可以使用<code>CreateOrUpdate</code>来创建资源，但是由于Deployment和Service资源具有较多字段，因此检测到差异并更新资源可能会有些麻烦。</p>
+<p>因此，我们将采用服务端应用(Server-Side Apply)方式使用<a href="controller-runtime/./client.html">ApplyConfiguration</a>创建资源。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller.go">import:“reconcile-deployment”</a></p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller.go">import:“reconcile-service”</a></p>
+<h3 id="更新状态"><a class="header" href="#更新状态">更新状态</a></h3>
+<p>最后，更新MarkdownView资源的状态以通知用户相关状况。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller.go">import:“update-status”</a></p>
+<p>在这里，我们会检查通过<code>reconcileDeployment</code>创建的Deployment资源的状态，并根据其状态确定MarkdownView资源的状态。</p>
+<h2 id="操作验证"><a class="header" href="#操作验证">操作验证</a></h2>
+<p>完成Reconcile处理的实现后，让我们进行操作验证。
+按照<a href="controller-runtime/../kubebuilder/kind.html">验证自定义控制器</a>中的步骤部署自定义控制器，并应用示例的MarkdownView资源。</p>
+<p>确认Deployment、Service、ConfigMap资源已经生成，并且MarkdownView资源的状态显示为Healthy。</p>
+<pre><code>$ kubectl get deployment,service,configmap
+NAME                                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/viewer-markdownview-sample   1/1     1            1           177m
+
+NAME                                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/viewer-markdownview-sample   ClusterIP   10.96.162.90   &lt;none&gt;        80/TCP    177m
+
+NAME                                      DATA   AGE
+configmap/markdowns-markdownview-sample   2      177m
+
+$ kubectl get markdownview markdownview-sample
+NAME                  REPLICAS   STATUS
+markdownview-sample   1          Healthy
+</code></pre>
+<p>接下来，进行端口转发以从本地环境访问创建的服务。</p>
+<pre><code>$ kubectl port-forward svc/viewer-markdownview-sample 3000:80
+</code></pre>
+<p>最后，在浏览器中访问<code>http://localhost:3000</code>。如果看到Markdown呈现在页面中，表示操作验证成功。</p>
+<p><img src="controller-runtime/./img/mdbook.png" alt="index" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="控制器测试"><a class="header" href="#控制器测试">控制器测试</a></h1>
+<p>controller-runtime提供了一个名为<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/envtest?tab=doc">envtest</a>的软件包，您可以使用它来执行控制器和Webhook的简单测试。</p>
+<p>envtest会启动etcd和kube-apiserver来构建测试环境。此外，通过指定环境变量<code>USE_EXISTING_CLUSTER</code>，您也可以使用现有的Kubernetes集群进行测试。</p>
+<p>在Envtest中，只启动etcd和kube-apiserver，而controller-manager和scheduler不会运行。因此，请注意，创建Deployment或CronJob资源时，并不会创建Pod。</p>
+<p>controller-runtime提供了一个名为<a href="https://github.com/kubernetes-sigs/controller-runtime/tree/master/tools/setup-envtest">Envtest Binaries Manager</a>的工具，通过使用这个工具，您可以设置Envtest使用的任意版本etcd和kube-apiserver的二进制文件。</p>
+<p>值得注意的是，由controller-gen生成的测试代码使用了名为<a href="https://github.com/onsi/ginkgo">Ginkgo</a>的测试框架。有关该框架的使用方法，请参阅<a href="https://onsi.github.io/ginkgo/">Ginkgo文档</a>。</p>
+<h2 id="设置测试环境"><a class="header" href="#设置测试环境">设置测试环境</a></h2>
+<p>让我们看一下由controller-gen自动生成的<code>internal/controller/suite_test.go</code>文件。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/suite_test.go">import, title=“internal/controller/suite_test.go”</a></p>
+<p>首先，在<code>envtest.Environment</code>中进行测试环境的配置。在这里，通过<code>CRDDirectoryPaths</code>指定要应用的CRD清单文件的路径。</p>
+<p>调用<code>testEnv.Start()</code>将启动etcd和kube-apiserver。然后只需像控制器的主函数一样执行初始化过程即可。</p>
+<p>在测试完成时，调用<code>testEnv.Stop()</code>将关闭etcd和kube-apiserver。</p>
+<h2 id="控制器测试-1"><a class="header" href="#控制器测试-1">控制器测试</a></h2>
+<p>接下来，让我们开始编写实际的测试。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/internal/controller/markdownview_controller_test.go">import</a></p>
+<p>首先，实现在每个测试执行之前和之后调用的<code>BeforeEach</code>和<code>AfterEach</code>函数。</p>
+<p>在<code>BeforeEach</code>中，删除所有测试使用的资源（请注意，Service资源不支持<code>DeleteAllOf</code>，因此我们逐个删除）。然后创建MarkdownViewReconciler并启动Reconciliation Loop处理。</p>
+<p>在<code>AfterEach</code>中，停止上面启动的Reconciliation Loop处理。</p>
+<p>接下来，使用<code>It</code>来编写测试用例。</p>
+<p>这些测试用例使用<code>k8sClient</code>将MarkdownView资源创建到Kubernetes集群中，并确保所期望的资源已经创建。由于Reconcile处理是异步运行的，因此使用Eventually函数等待资源创建完成。</p>
+<p>值得注意的是，<code>newMarkdownView</code>是一个辅助函数，用于创建测试用的MarkdownView资源。</p>
+<p>最后一个测试确保状态已更新。通常在这里应该测试状态是否为Healthy。然而，在Envtest中，由于缺少controller-manager，Deployment无法准备就绪，MarkdownView的状态也不会成为Healthy。因此，在这里只要状态有所更新就可以。请时刻意识到Envtest与实际Kubernetes集群的区别，编写测试时需要考虑这一点。</p>
+<p>写好测试后，使用<code>make test</code>来运行测试。如果测试成功，将显示<code>ok</code>。</p>
+<pre><code class="language-console">?       github.com/zoetrope/markdown-view       [no test files]
+ok      github.com/zoetrope/markdown-view/api/v1        6.957s  coverage: 51.6% of statements
+ok      github.com/zoetrope/markdown-view/controllers   8.319s  coverage: 85.3% of statements
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="webhook实现"><a class="header" href="#webhook实现">Webhook实现</a></h1>
+<p>在Kubernetes中，在创建、更新、删除资源之前，您可以使用Webhook执行任意处理操作。
+MutatingWebhook允许您更改资源的值，而ValidatingWebhook允许您验证值。</p>
+<p>在controller-runtime中，为实现MutatingWebhook的Defaulter和ValidatingWebhook的Validator提供了支持。</p>
+<h2 id="实现defaulter"><a class="header" href="#实现defaulter">实现Defaulter</a></h2>
+<p>首先是Defaulter的实现。
+在Default方法中，您可以更改MarkdownView资源的值。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/api/v1/markdownview_webhook.go">import:“head,webhook-defaulter,default”</a></p>
+<p>在这里，如果<code>r.Spec.ViewerImage</code>为空，我们指定了默认的容器镜像。</p>
+<h2 id="实现validator"><a class="header" href="#实现validator">实现Validator</a></h2>
+<p>接下来是Validator的实现。
+ValidateCreate、ValidateUpdate、ValidateDelete分别在资源创建、更新和删除时调用。
+通过在这些函数中检查MarkdownView资源的内容并返回错误，您可以导致操作失败。</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/api/v1/markdownview_webhook.go">import:“head,webhook-validator,validate”</a></p>
+<p>这次，我们决定在ValidateCreate和ValidateUpdate中执行相同的验证。
+如果<code>.Spec.Replicas</code>的值不在1到5的范围内，或者<code>.Spec.Markdowns</code>不包含<code>SUMMARY.md</code>，则视为错误。</p>
+<p>在实现ValidationWebhook时，<code>"k8s.io/apimachinery/pkg/util/validation/field"</code>包非常有用。
+使用该包，您可以指定错误的原因或有问题的字段，以便在验证错误时获得更明确的消息。</p>
+<h2 id="测试验证"><a class="header" href="#测试验证">测试验证</a></h2>
+<p>现在，让我们验证Webhook的工作。</p>
+<p>将实现了Webhook的自定义控制器部署到Kubernetes集群中，并应用以下未指定<code>ViewerImage</code>的清单文件。</p>
+<pre><code class="language-yaml">apiVersion: view.zoetrope.github.io/v1
+kind: MarkdownView
+metadata:
+  name: markdownview-sample
+spec:
+  markdowns:
+    SUMMARY.md: |
+      # Summary
+
+      - [Page1](page1.md)
+    page1.md: |
+      # Page 1
+
+      它是第一页的内容。
+  replicas: 1
+</code></pre>
+<p>检查创建的资源，如果<code>ViewerImage</code>中包含默认的容器镜像名称，则说明成功。</p>
+<pre><code>$ kubectl get markdownview markdownview-sample -o jsonpath="{.spec.viewerImage}"
+peaceiris/mdbook:latest
+</code></pre>
+<p>接下来，让我们验证ValidationWebhook的工作。</p>
+<p>尝试编辑之前创建的资源，将<code>replicas</code>设置为一个较大的值，或者在<code>markdowns</code>中不包含<code>SUMMARY.md</code>。
+如果出现类似以下错误，则表示成功。</p>
+<p>希望这可以帮到您！如果需要进一步帮助，请告诉我。</p>
+<pre><code>$ kubectl edit markdownview markdownview-sample
+
+markdownviews.view.zoetrope.github.io "markdownview-sample" was not valid:
+ * spec.replicas: Invalid value: 10: replicas must be in the range of 1 to 5.
+ * spec.markdowns: Required value: markdowns must have SUMMARY.md.
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="webhook测试"><a class="header" href="#webhook测试">Webhook测试</a></h1>
+<h2 id="设置测试环境-1"><a class="header" href="#设置测试环境-1">设置测试环境</a></h2>
+<p>与控制器测试类似，Webhook也可以使用Envtest进行测试。
+Kubebuilder生成了用于执行测试的代码如下所示：</p>
+<p><a href="controller-runtime/../../codes/40_reconcile/api/v1/webhook_suite_test.go">import, title=“api/v1/webhook_suite_test.go”</a></p>
+<p>基本上，这与控制器测试代码类似，但在创建<code>envtest.Environment</code>时，您需要指定Webhook的清单文件路径，
+并且在调用<code>ctrl.NewManager</code>时，需要使用测试环境的参数来覆盖<code>Host</code>、<code>Port</code>和<code>CertDir</code>参数。</p>
+<h2 id="webhook测试-1"><a class="header" href="#webhook测试-1">Webhook测试</a></h2>
+<p>让我们来编写Webhook的测试代码。
+<a href="controller-runtime/../../codes/40_reconcile/api/v1/markdownview_webhook_test.go">import, title=“api/v1/markdownview_webhook_test.go”</a></p>
+<p>在MutatingWebhook的测试中，我们使用输入的清单文件（before.yaml）来创建资源，
+并确保创建的资源与预期值的清单文件（after.yaml）内容一致。</p>
+<p>在ValidatingWebhook的测试中，我们使用Valid的清单文件（valid.yaml）来创建资源，
+并使用Invalid的清单文件（empty-markdowns.yaml、invalid-replicas.yaml、without-summary.yaml）来测试创建资源失败的情况。</p>
+<p>最后，确保通过<code>make test</code>来运行测试。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="资源清理"><a class="header" href="#资源清理">资源清理</a></h1>
+<p>在这里，我们将解释关于在Kubernetes中执行资源清理的过程。</p>
+<p>实际上，在控制器中执行清理操作是一个具有挑战性的问题。
+例如，如果要删除MarkdownView资源，还必须同时删除与该MarkdownView关联的ConfigMap、Deployment和Service资源。
+但是，如果错过了删除MarkdownView的事件，那么与该资源相关的信息将消失，您将无法判断应删除哪些关联资源。</p>
+<h2 id="基于ownerreference的垃圾收集"><a class="header" href="#基于ownerreference的垃圾收集">基于ownerReference的垃圾收集</a></h2>
+<p>第一个资源清理机制是基于ownerReference的垃圾收集。(<a href="https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/">参考</a>)。
+这意味着当父资源被删除时，通过垃圾收集机制会自动删除与该资源关联的子资源。</p>
+<p>Kubernetes使用<code>.metadata.ownerReferences</code>字段来表示资源之间的父子关系。</p>
+<p>通过使用controller-runtime提供的<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil?tab=doc#SetControllerReference">controllerutil.SetControllerReference</a>函数，您可以为指定资源设置ownerReference。</p>
+<p>让我们尝试在先前创建的<code>reconcileConfigMap</code>函数中使用<code>controllerutil.SetControllerReference</code>。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“reconcile-configmap”,unindent:“true”</a></p>
+<p>使用此函数，ConfigMap资源将被赋予以下形式的<code>.metadata.ownerReferences</code>，其中这个资源将包含父资源的信息。</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-07-25T09:35:43Z"
+  name: markdowns-markdownview-sample
+  namespace: default
+  ownerReferences:
+  - apiVersion: view.zoetrope.github.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: MarkdownView
+    name: markdownview-sample
+    uid: 8e8701a6-fa67-4ab8-8e0c-29c21ae6e1ec
+  resourceVersion: "17582"
+  uid: 8803226f-7d8f-4632-b3eb-e47dc36eabf3
+data:
+  ・・省略・・
+</code></pre>
+<p>在这种情况下，如果删除父MarkdownView资源，子ConfigMap资源也将被自动删除。</p>
+<p>另外，无法将位于不同命名空间的资源作为owner，也无法将命名空间范围的资源指定为cluster-scoped资源的owner。</p>
+<p>此外，除了<code>SetControllerReference</code>之外，还有一个类似的函数叫做<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil?tab=doc#SetOwnerReference">controllerutil.SetOwnerReference</a>。
+<code>SetControllerReference</code>只能为一个资源指定一个owner，而且由于<code>controller</code>字段和<code>blockOwnerDeletion</code>字段都设置为true，直到子资源被删除前，父资源的删除都会被阻止。
+另一方面，<code>SetOwnerReference</code>允许为一个资源指定多个owner，并且不会阻止子资源的删除。</p>
+<p><code>controllerutil.SetControllerReference</code>不支持用于Server-Side Apply的ApplyConfiguration类型。
+因此，我们可以准备一个辅助函数来处理这种情况。
+<a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“controller-reference”,unindent:“true”</a></p>
+<pre><code class="language-go">func SetOwnerReference(obj, owner metav1.Object, scheme *runtime.Scheme) error {
+	ownerRef := metav1.NewControllerRef(owner, owner.GetObjectKind().GroupVersionKind())
+	return controllerutil.SetControllerReference(ownerRef, obj, scheme)
+}
+</code></pre>
+<p>当使用Server-Side Apply的垃圾收集时，可以使用这个辅助函数在创建ApplyConfiguration类型时设置ownerReference。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“service-apply-configuration”,unindent:“true”</a></p>
+<pre><code class="language-go">applyConfig := &amp;unstructured.Unstructured{
+	Object: map[string]interface{}{
+		"apiVersion": "v1",
+		"kind":       "Service",
+		"metadata": map[string]interface{}{
+			"name":      "my-service",
+			"namespace": "default",
+		},
+	},
+}
+
+if err := SetOwnerReference(applyConfig, mdView, r.Scheme); err != nil {
+	return ctrl.Result{}, err
+}
+</code></pre>
+<h2 id="finalizer"><a class="header" href="#finalizer">Finalizer</a></h2>
+<h3 id="finalizer机制"><a class="header" href="#finalizer机制">Finalizer机制</a></h3>
+<p>通过ownerReference和垃圾收集，我们可以删除父资源时自动删除子资源。
+然而，仅凭这种机制是无法处理所有情况的。
+例如，如果要删除与父资源不同命名空间或作用域的子资源，或者要删除Kubernetes以外管理的外部资源时，垃圾收集功能将无法使用。</p>
+<p>对于这种情况，可以使用Finalizer机制。</p>
+<p>要使用Finalizer机制，首先需要在父资源的<code>finalizers</code>字段中指定Finalizer的名称。
+请确保这个名称能够被MarkdownView控制器识别为其管理的Finalizer，并且不会与其他控制器产生冲突。</p>
+<pre><code class="language-yaml">apiVersion: view.zoetrope.github.io/v1
+kind: MarkdownView
+metadata:
+  finalizers:
+  - markdownview.view.zoetrope.github.io/finalizer
+# 以下省略
+</code></pre>
+<p>即使您尝试删除具有“finalizers”字段的资源，也不会删除该资源。
+相反，只需添加“deletionTimestamp”，如下所示。</p>
+<pre><code class="language-yaml">apiVersion: view.zoetrope.github.io/v1
+kind: MarkdownView
+metadata:
+  finalizers:
+    - markdownview.view.zoetrope.github.io/finalizer
+  deletionTimestamp: "2021-07-24T15:23:54Z"
+# 以下省略
+</code></pre>
+<p>当自定义控制器发现已给出<code>deletionTimestamp</code>时，它将删除与该资源关联的资源，然后删除<code>finalizers</code>字段。
+当<code>finalizers</code>字段为空时，Kubernetes将永久删除该资源。</p>
+<p>通过这种机制，即使控制器错过了删除事件，Reconcile 也会被多次调用，直到目标资源被删除，避免了子资源信息丢失和无法删除的问题。
+另一方面，请注意，如果在删除自定义资源之前删除控制器，则会遇到自定义资源永远不会被删除的问题。</p>
+<h3 id="finalizer如何实现"><a class="header" href="#finalizer如何实现">Finalizer如何实现</a></h3>
+<p>现在让我们实现 Finalizer。
+在controller-runtime中，处理Finalizer的实用函数是 <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil?tab=doc#ContainsFinalizer">controllerutil.ContainsFinalizer</a>, <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil?tab=doc#AddFinalizer">controllerutil.AddFinalizer</a>, <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil?tab=doc#RemoveFinalizer">controllerutil.RemoveFinalizer</a>，所以使用这个。</p>
+<p>您可以使用<code>Finalizers</code>字段实现您自己的资源删除过程，如下所示。</p>
+<pre><code class="language-go">finalizerName := "markdwonview.view.zoetrope.github.io/finalizer"
+if !mdView.ObjectMeta.DeletionTimestamp.IsZero() {
+    // 如果deletionTimestamp不为零，则表示资源删除已经开始。
+
+    // 如果finalizer中存在上面指定的名称，请将其删除。
+    if controllerutil.ContainsFinalizer(&amp;mdView, finalizerName) {
+        // 在此处删除外部资源
+        deleteExternalResources()
+
+        // 删除finalizers字段，以便可以删除资源
+        controllerutil.RemoveFinalizer(&amp;mdView, finalizerName)
+        err = r.Update(ctx, &amp;mdView)
+        if err != nil {
+            return ctrl.Result{}, err
+        }
+    }
+    return ctrl.Result{}, nil
+}
+
+// 如果未提供deletionTimestamp，则添加finalizer字段。
+if !controllerutil.ContainsFinalizer(&amp;mdView, finalizerName) {
+    controllerutil.AddFinalizer(&amp;mdView, finalizerName)
+    err = r.Update(ctx, &amp;mdView)
+    if err != nil {
+        return ctrl.Result{}, err
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="manager-1"><a class="header" href="#manager-1">Manager</a></h1>
+<p><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#Manager">Manager</a>负责管理多个控制器，并提供了领导者选举、指标、健康检查服务器等功能。</p>
+<p>虽然我们已经介绍了Manager的一些功能，但它还有许多其他方便的功能。让我们继续介绍一些。</p>
+<h2 id="领导者选举"><a class="header" href="#领导者选举">领导者选举</a></h2>
+<p>如果要提高自定义控制器的可用性，可以使用部署功能将多个自定义控制器的Pod部署到集群中。
+然而，如果Reconcile处理程序针对相同资源执行某些处理，可能会导致竞态条件。</p>
+<p>因此，Manager提供了领导者选举功能。
+这样，它可以从多个进程中选出一个领导者，只有选中的领导者进程才能执行Reconcile处理。</p>
+<p>使用领导者选举很简单，只需在<code>NewManager</code>的选项中将<code>LeaderElection</code>设置为true，并在<code>LeaderElectionID</code>中指定领导者选举的ID即可。
+领导者选举会从指定了相同<code>LeaderElectionID</code>的进程中选出一个领导者。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>接下来，将<a href="controller-runtime/../../codes/50_completed/config/manager/manager.yaml">config/manager/manager.yaml</a>中的<code>replicas</code>字段更改为2，然后部署MarkdownView控制器。</p>
+<p>如果查看部署的两个Pod的日志，您将看到被选为领导者的Pod是唯一执行Reconcile处理的Pod。
+终止被选为领导者的Pod后，您将看到另一个Pod成为新的领导者。</p>
+<p>需要提醒的是，由于Admission Webhook处理不会导致竞态条件，因此不是领导者的进程依然可以执行Admission Webhook处理。</p>
+<p>Manager提供了许多便利功能，领导者选举只是其中之一。希望这些信息有助于您更好地了解和使用Manager。</p>
+<h2 id="runnable"><a class="header" href="#runnable">Runnable</a></h2>
+<p>在实现自定义控制器时，除了Reconcile循环之外，有时可能希望启动goroutine定期执行某些任务，或者等待某些事件。
+Manager提供了一种机制来实现这种处理。</p>
+<p>例如，TopoLVM在定期收集指标和启动gRPC服务器方面使用了Runnable。</p>
+<ul>
+<li><a href="https://github.com/topolvm/topolvm/tree/main/runners">https://github.com/topolvm/topolvm/tree/main/runners</a></li>
+</ul>
+<p>要使用Runnable功能，您需要准备以下代码，实现<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#Runnable">Ruunable</a>接口。
+下面是一个以10秒为周期执行某些处理的Runner的实现示例。</p>
+<pre><code class="language-go">package runners
+
+import (
+    "context"
+    "fmt"
+    "time"
+)
+
+type Runner struct {
+}
+
+func (r Runner) Start(ctx context.Context) error {
+    ticker := time.NewTicker(10 * time.Second)
+    defer ticker.Stop()
+    for {
+        select {
+        case &lt;-ctx.Done():
+            return ctx.Err()
+        case &lt;-ticker.C:
+            fmt.Println("run something")
+        }
+    }
+}
+
+func (r Runner) NeedLeaderElection() bool {
+    return true
+}
+</code></pre>
+<p>当调用Manager的Start方法时，Start方法将作为goroutine调用。
+通过参数<code>context</code>，您可以接收来自Manager的退出通知。</p>
+<pre><code class="language-go">err = mgr.Add(&amp;runners.Runner{})
+</code></pre>
+<p>值得注意的是，此Runner的处理通常只在作为领导者运行的Manager中起作用。
+如果希望在非领导者状态下始终运行某些处理，可以实现<a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/manager?tab=doc#LeaderElectionRunnable">LeaderElectionRunnable</a>接口，并在NeedLeaderElection方法中返回 <code>false</code>。</p>
+<h2 id="eventrecorder"><a class="header" href="#eventrecorder">EventRecorder</a></h2>
+<p>在自定义资源的状态中保存了当前状态，如果想记录过去执行过的处理情况，可以利用Kubernetes提供的<a href="https://pkg.go.dev/k8s.io/api/core/v1?tab=doc#Event">Event</a>资源。</p>
+<p>Manager提供了记录事件的功能，通过<code>GetEventRecorderFor</code>可以获取<a href="https://pkg.go.dev/k8s.io/client-go/tools/record?tab=doc#EventRecorder">EventRecorder</a>。
+在初始化Reconciler时，通过传递EventRecorder来记录事件。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“init-reconciler”,unindent:“true”</a></p>
+<p>在Reconciler中将其作为字段持有。</p>
+<pre><code class="language-go">// 在Reconciler中持有EventRecorder
+type MarkdownViewReconciler struct {
+    // Other fields
+    eventRecorder record.EventRecorder
+}
+</code></pre>
+<p>可通过<code>Event</code>, <code>Eventf</code>, <code>AnnotatedEventf</code>等函数来记录事件。
+在这里，我们决定在更新状态时记录以下类型的事件。注意，事件类型只能是<code>EventTypeNormal</code>或<code>EventTypeWarning</code>。</p>
+<pre><code class="language-go">// 记录事件
+r.eventRecorder.Event(resource, corev1.EventTypeNormal, "StatusUpdated", "Status has been updated")
+</code></pre>
+<p>Event资源与指定的资源关联，并且与该资源相同的命名空间中创建Event资源。
+为了让自定义控制器能够创建Event资源，需要添加下面的RBAC标记，并通过<code>make manifests</code>更新清单文件。</p>
+<p>カスタムリソースのStatusには、現在の状態が保存されています。
+一方、これまでどのような処理が実施されてきたのかを記録したい場合、Kubernetesが提供する<a href="https://pkg.go.dev/k8s.io/api/core/v1?tab=doc#Event">Event</a>リソースを利用できます。</p>
+<p>Managerはイベントを記録するための機能を提供しており、<code>GetEventRecorderFor</code>で<a href="https://pkg.go.dev/k8s.io/client-go/tools/record?tab=doc#EventRecorder">EventRecorder</a>を取得できます。
+以下のように、Reconcilerを初期化する際にEventRecorderを渡します。</p>
+<p>Reconcilerではこれをフィールドとして持っておきます。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“reconciler”,unindent:“true”</a>
+Eventを記録するための関数として、<code>Event</code>, <code>Eventf</code>, <code>AnnotatedEventf</code>などが用意されています。
+ここでは、ステータス更新時に以下のようなイベントを記録することにしましょう。なお、イベントタイプには<code>EventTypeNormal</code>, <code>EventTypeWarning</code>のみ指定できます。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“call-recorder-event”,unindent:“true”</a></p>
+<p>このEventリソースは第1引数で指定したリソースに結びいており、そのリソースと同じnamespaceにEventリソースが作成されます。
+カスタムコントローラーがEventリソースを作成できるように、以下のようなRBACのマーカーを追加し、<code>make manifests</code>でマニフェストを更新しておきます。</p>
+<pre><code class="language-go">//+kubebuilder:rbac:groups=core,resources=events,verbs=create;update;patch
+</code></pre>
+<p>コントローラーを実行し、作成したEventリソースを確認してみましょう。なお、Eventリソースはデフォルト設定では1時間経つと消えてしまいます。</p>
+<pre><code>$ kubectl get events -n default
+LAST SEEN   TYPE     REASON    OBJECT                             MESSAGE
+14s         Normal   Updated   markdownview/markdownview-sample   MarkdownView(default:markdownview-sample) updated: NotReady
+13s         Normal   Updated   markdownview/markdownview-sample   MarkdownView(default:markdownview-sample) updated: Healthy
+</code></pre>
+<h2 id="healthprobe"><a class="header" href="#healthprobe">HealthProbe</a></h2>
+<p>Managerには、ヘルスチェック用のAPIのエンドポイントを作成する機能が用意されています。</p>
+<p>ヘルスチェック機能を利用するには、Managerの作成時に<code>HealthProbeBindAddress</code>でエンドポイントのアドレスを指定します。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>そして、<code>AddHealthzCheck</code>と<code>AddReadyzCheck</code>で、ハンドラの登録をおこないます。
+デフォルトでは<code>healthz.Ping</code>という何もしない関数を利用していますが、独自関数の登録も可能です。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“health”,unindent:“true”</a></p>
+<p>カスタムコントローラーのマニフェストでは、このヘルスチェックAPIを<code>livenessProbe</code>と<code>readinessProbe</code>として利用するように指定されています。</p>
+<p><a href="controller-runtime/../../codes/50_completed/config/manager/manager.yaml">import:“probe”,unindent:“true”</a></p>
+<h2 id="fieldindexer"><a class="header" href="#fieldindexer">FieldIndexer</a></h2>
+<p><a href="controller-runtime/./client.html">クライアントの使い方</a>で紹介したように、複数のリソースを取得する際にラベルやnamespaceで絞り込むことが可能です。
+しかし、特定のフィールドの値に応じてフィルタリングしたいこともあるでしょう。
+controller-runtimeではインメモリにキャッシュしているリソースに対してインデックスを張る仕組みが用意されています。</p>
+<p><img src="controller-runtime/./img/index.png" alt="index" /></p>
+<p>インデックスを利用するためには事前にManagerの<code>GetFieldIndexer()</code>を利用して、どのフィールドの値に基づいてインデックスを張るのかを指定します。
+下記の例ではConfigMapリソースに対して、<code>ownerReferences</code>に指定されているMarkdownViewリソースの名前でインデックスを作成しています。</p>
+<pre><code class="language-go">const ownerControllerField = ".metadata.ownerReference.controller"
+
+func indexByOwnerMarkdownView(obj client.Object) []string {
+    cm := obj.(*corev1.ConfigMap)
+    owner := metav1.GetControllerOf(cm)
+    if owner == nil {
+        return nil
+    }
+    if owner.APIVersion != viewv1.GroupVersion.String() || owner.Kind != "MarkdownView" {
+        return nil
+    }
+    return []string{owner.Name}
+}
+
+func (r *MarkdownViewReconciler) SetupWithManager(mgr ctrl.Manager) error {
+    err := mgr.GetFieldIndexer().IndexField(ctx, &amp;corev1.ConfigMap{}, ownerControllerField, indexByOwnerMarkdownView)
+    if err != nil {
+        return err
+    }
+    return nil
+}
+</code></pre>
+<p><code>IndexField</code>の第3引数のフィールド名には、どのフィールドを利用してインデックスを張っているのかを示す文字列を指定します。
+ここでは、<code>.metadata.ownerReference.controller</code>という文字列を指定しています。
+実際にインデックスに利用しているフィールドのパスと一致していなくても問題はないのですが、一致させると可読性がよくなるのでおすすめです。</p>
+<p>なおインデックスはGVKごとに作成されるので、異なるタイプのリソース間でフィールド名が同じになっても問題ありません。
+またnamespaceスコープのリソースの場合は、内部的にフィールド名にnamespace名を付与して管理しているので、明示的にフィールド名にnamespaceを含める必要はありません。
+インデクサーが返す値はスライスになっていることから分かるように、複数の値にマッチするようなインデックスの構成も可能です。</p>
+<p>上記のようなインデックスを作成しておくと、<code>List()</code>を呼び出す際に特定のフィールドが指定した値と一致するリソースだけを取得できます。
+例えば以下の例であれば、ownerReferenceに指定したMarkdownViewリソースがセットされているConfigMapだけを取得できます。</p>
+<pre><code class="language-go">var cms corev1.ConfigMapList
+err := r.List(ctx, &amp;cms, client.MatchingFields(map[string]string{ownerControllerField: mdView.Name}))
+if err != nil {
+    return err
+}
+</code></pre>
+<h2 id="eventrecorder-1"><a class="header" href="#eventrecorder-1">EventRecorder</a></h2>
+<p>在自定义资源的状态中保存了当前状态，如果想记录过去执行过的处理情况，可以利用Kubernetes提供的<a href="https://pkg.go.dev/k8s.io/api/core/v1?tab=doc#Event">Event</a>资源。</p>
+<p>Manager提供了记录事件的功能，通过<code>GetEventRecorderFor</code>可以获取<a href="https://pkg.go.dev/k8s.io/client-go/tools/record?tab=doc#EventRecorder">EventRecorder</a>。
+在初始化Reconciler时，通过传递EventRecorder来记录事件。</p>
+<pre><code class="language-go">// 初始化Reconciler时传递EventRecorder
+eventRecorder := mgr.GetEventRecorderFor("markdownview-controller")
+</code></pre>
+<p>在Reconciler中将其作为字段持有。</p>
+<pre><code class="language-go">// 在Reconciler中持有EventRecorder
+type MarkdownViewReconciler struct {
+    // Other fields
+    eventRecorder record.EventRecorder
+}
+</code></pre>
+<p>可通过<code>Event</code>, <code>Eventf</code>, <code>AnnotatedEventf</code>等函数来记录事件。
+在这里，我们决定在更新状态时记录以下类型的事件。注意，事件类型只能是<code>EventTypeNormal</code>或<code>EventTypeWarning</code>。</p>
+<pre><code class="language-go">// 记录事件
+r.eventRecorder.Event(resource, corev1.EventTypeNormal, "StatusUpdated", "Status has been updated")
+</code></pre>
+<p>Event资源与指定的资源关联，并且与该资源相同的命名空间中创建Event资源。
+为了让自定义控制器能够创建Event资源，需要添加下面的RBAC标记，并通过<code>make manifests</code>更新清单文件。</p>
+<h2 id="healthprobe-1"><a class="header" href="#healthprobe-1">HealthProbe</a></h2>
+<p>Manager 提供了创建 API 端点以进行健康检查的能力。</p>
+<p>要使用健康检查功能，请在创建Manager时通过“HealthProbeBindAddress”指定端点地址。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>然后，使用<code>AddHealthzCheck</code>和<code>AddReadyzCheck</code>注册处理程序。
+默认情况下，使用一个名为<code>healthz.Ping</code>的函数，该函数不执行任何操作，但您也可以注册自己的函数。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“health”,unindent:“true”</a></p>
+<p>在自定义控制器清单中，此运行状况检查 API 被指定用作<code>livenessProbe</code>和<code>readinessProbe</code>。</p>
+<p><a href="controller-runtime/../../codes/50_completed/config/manager/manager.yaml">import:“probe”,unindent:“true”</a></p>
+<h2 id="fieldindexer-1"><a class="header" href="#fieldindexer-1">FieldIndexer</a></h2>
+<p>正如<a href="controller-runtime/./client.html">如何使用客户端</a>中介绍的，在检索多个资源时，可以通过标签或命名空间来缩小范围。
+但是，您可能还想根据特定字段的值进行过滤。
+控制器运行时提供了一种对内存中缓存的资源进行索引的机制。</p>
+<p><img src="controller-runtime/./img/index.png" alt="索引" /></p>
+<p>要使用索引，请提前使用 Manager 的 GetFieldIndexer() 指定基于哪个字段值创建索引。
+在下面的示例中，使用“ownerReferences”中指定的 MarkdownView 资源的名称为 ConfigMap 资源创建索引。</p>
+<p>对于“IndexField”的第三个参数的字段名称，指定一个字符串，指示哪个字段用于索引。
+在这里，我们指定字符串“.metadata.ownerReference.controller”。
+即使路径与索引实际使用的字段路径不匹配也没有问题，但建议匹配，这样可以提高可读性。</p>
+<p>请注意，索引是为每个GVK创建的，因此即使不同类型的资源之间字段名称相同也没有问题。
+另外，对于命名空间范围资源，命名空间名称在内部分配给字段名称并进行管理，因此不需要在字段名称中显式包含命名空间。
+从索引器返回的值是切片可以看出，可以构造匹配多个值的索引。</p>
+<p>通过创建像上面这样的索引，您可以在调用“List()”时仅检索特定字段与指定值匹配的资源。
+例如，在下面的示例中，只能检索拥有在ownerReference中指定的MarkdownView资源的ConfigMap。</p>
+<pre><code class="language-go">var cms corev1.ConfigMapList
+err := r.List(ctx, &amp;cms, client.MatchingFields(map[string]string{ownerControllerField: mdView.Name}))
+if err != nil {
+    return err
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="监控"><a class="header" href="#监控">监控</a></h1>
+<p>在运行自定义控制器时，监控是非常重要的。
+为了确保系统稳定运行，如果自定义控制器管理的资源或自身出现问题，需要及时检测并采取适当的措施。</p>
+<p>这里将介绍controller-runtime提供的指标公开机制。</p>
+<h2 id="基本指标"><a class="header" href="#基本指标">基本指标</a></h2>
+<p>通过Kubebuilder生成的代码默认会公开基本指标。这些指标涵盖了CPU和内存使用量、Reconcile操作耗时以及Kubernetes客户端的延迟等与controller-runtime相关的指标。</p>
+<p>让我们看一下都有哪些指标被公开。
+通过访问在<code>NewManager</code>选项的<code>MetricsBindAddress</code>指定的地址，您可以查看已公开的指标。</p>
+<p><a href="controller-runtime/../../codes/50_completed/cmd/main.go">import:“new-manager”,unindent:“true”</a></p>
+<p>首先，让我们通过端口转发对指标端口进行访问。</p>
+<pre><code>kubectl -n markdown-view-system port-forward deploy/markdown-view-controller-manager 8080:8080
+</code></pre>
+<p>运行curl命令，您将看到类似以下的指标输出。</p>
+<pre><code>$ curl localhost:8080/metrics
+# HELP controller_runtime_active_workers Number of currently used workers per controller
+# TYPE controller_runtime_active_workers gauge
+controller_runtime_active_workers{controller="markdownview"} 0
+# HELP controller_runtime_max_concurrent_reconciles Maximum number of concurrent reconciles per controller
+# TYPE controller_runtime_max_concurrent_reconciles gauge
+controller_runtime_max_concurrent_reconciles{controller="markdownview"} 1
+# HELP controller_runtime_reconcile_errors_total Total number of reconciliation errors per controller
+# TYPE controller_runtime_reconcile_errors_total counter
+controller_runtime_reconcile_errors_total{controller="markdownview"} 0
+# HELP controller_runtime_reconcile_total Total number of reconciliations per controller
+# TYPE controller_runtime_reconcile_total counter
+controller_runtime_reconcile_total{controller="markdownview",result="error"} 0
+controller_runtime_reconcile_total{controller="markdownview",result="requeue"} 0
+controller_runtime_reconcile_total{controller="markdownview",result="requeue_after"} 0
+controller_runtime_reconcile_total{controller="markdownview",result="success"} 0
+# HELP controller_runtime_webhook_requests_in_flight Current number of admission requests being served.
+# TYPE controller_runtime_webhook_requests_in_flight gauge
+controller_runtime_webhook_requests_in_flight{webhook="/mutate-view-zoetrope-github-io-v1-markdownview"} 0
+controller_runtime_webhook_requests_in_flight{webhook="/validate-view-zoetrope-github-io-v1-markdownview"} 0
+# HELP controller_runtime_webhook_requests_total Total number of admission requests by HTTP status code.
+# TYPE controller_runtime_webhook_requests_total counter
+controller_runtime_webhook_requests_total{code="200",webhook="/mutate-view-zoetrope-github-io-v1-markdownview"} 0
+controller_runtime_webhook_requests_total{code="200",webhook="/validate-view-zoetrope-github-io-v1-markdownview"} 0
+controller_runtime_webhook_requests_total{code="500",webhook="/mutate-view-zoetrope-github-io-v1-markdownview"} 0
+controller_runtime_webhook_requests_total{code="500",webhook="/validate-view-zoetrope-github-io-v1-markdownview"} 0
+
+・・・ 以下省略
+
+</code></pre>
+<h2 id="自定义指标"><a class="header" href="#自定义指标">自定义指标</a></h2>
+<p>除了controller-runtime提供的指标外，还可以公开与特定自定义控制器相关的自定义指标。
+请参考<a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Prometheus文档</a>了解详细信息。</p>
+<p>这里我们尝试将MarkdownView资源的状态作为指标公开。
+考虑到MarkdownView有3种状态，我们将准备3个Gauge Vector。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/metrics.go">import, title=“metrics.go”</a></p>
+<p>我们准备一个用于更新指标的函数。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“set-metrics”,unindent:“true”</a></p>
+<p>在更新状态时调用此函数。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“call-set-metrics”,unindent:“true”</a></p>
+<p>另外，我们也需要准备一个函数用于删除指标。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“remove-metrics”,unindent:“true”</a></p>
+<p>确保在资源删除时删除相应的指标。</p>
+<p><a href="controller-runtime/../../codes/50_completed/internal/controller/markdownview_controller.go">import:“call-remove-metrics”,unindent:“true”</a></p>
+<p>与之前相同，让我们再次查看一下指标。如果输出包含以下内容，那么设置成功。</p>
+<pre><code>$ curl localhost:8080/metrics
+
+# HELP markdownview_available The cluster status about available condition
+# TYPE markdownview_available gauge
+markdownview_available{name="markdownview-sample",namespace="markdownview-sample"} 0
+# HELP markdownview_healthy The cluster status about healthy condition
+# TYPE markdownview_healthy gauge
+markdownview_healthy{name="markdownview-sample",namespace="markdownview-sample"} 1
+# HELP markdownview_notready The cluster status about not ready condition
+# TYPE markdownview_notready gauge
+markdownview_notready{name="markdownview-sample",namespace="markdownview-sample"} 0
+</code></pre>
+<h2 id="kube-rbac-proxy"><a class="header" href="#kube-rbac-proxy">kube-rbac-proxy</a></h2>
+<p>在由Kubebuilder生成的项目中，已经包含了 <a href="https://github.com/brancz/kube-rbac-proxy">kube-rbac-proxy</a> 的相关清单，以便使用。
+通过使用kube-rbac-proxy，您可以通过RBAC设置权限，以允许访问指标端点。
+通过将指标的API仅暴露给Prometheus，您可以阻止任意用户获取指标数据。</p>
+<p>为了使用kube-rbac-proxy，请取消<code>manager_auth_proxy_patch.yaml</code>文件中的注释。</p>
+<p><a href="controller-runtime/../../codes/50_completed/config/default/kustomization.yaml">import:“patches,enable-auth-proxy”</a></p>
+<p>同时，启用以<code>auth_proxy_</code>开头的4个清单文件。</p>
+<p><a href="controller-runtime/../../codes/50_completed/config/rbac/kustomization.yaml">import</a></p>
+<h2 id="在grafana中可视化"><a class="header" href="#在grafana中可视化">在Grafana中可视化</a></h2>
+<p>接下来，让我们使用Prometheus和Grafana，将控制器的指标数据可视化。</p>
+<p>首先，准备清单文件。
+取消<code>config/default/kustomization.yaml</code>中以下部分的注释。</p>
+<p><a href="controller-runtime/../../codes/50_completed/config/default/kustomization.yaml">import:“resources,enable-prometheus”</a></p>
+<p>运行<code>make manifests</code>以生成清单文件，然后将其应用到Kubernetes集群中。</p>
+<p>为了设置Prometheus Operator，请按照以下步骤安装Helm。</p>
+<ul>
+<li>https://helm.sh/docs/intro/install/</li>
+</ul>
+<p>接下来注册Helm存储库。</p>
+<pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+</code></pre>
+<p>安装Prometheus Operator。请耐心等待设置完成。</p>
+<pre><code>kubectl create ns prometheus
+helm install prometheus prometheus-community/kube-prometheus-stack --namespace=prometheus --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false
+kubectl wait pod --all -n prometheus --for condition=Ready --timeout 180s
+</code></pre>
+<p>由于需要授权Prometheus访问指标数据，因此请应用以下清单文件。
+<a href="controller-runtime/../../codes/50_completed/config/rbac/prometheus_role_binding.yaml">import</a></p>
+<p>为了从本地环境访问Grafana界面，请设置端口转发。</p>
+<pre><code>kubectl port-forward service/prometheus-grafana 3000:80 --address 0.0.0.0 --namespace prometheus
+</code></pre>
+<p>在浏览器中打开<code>http://localhost:3000</code>以进入Grafana界面，并使用以下信息登录：</p>
+<ul>
+<li>用户名：<code>admin</code></li>
+<li>密码：<code>prom-operator</code></li>
+</ul>
+<p>打开Explore页面，并输入以下PromQL查询，即可监控Reconcile操作的处理时间。</p>
+<pre><code>histogram_quantile(0.99, sum(rate(controller_runtime_reconcile_time_seconds_bucket[5m])) by (le))
+</code></pre>
+<p><img src="controller-runtime/./img/grafana.png" alt="grafana" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
